@@ -14,6 +14,14 @@ namespace VideoStore.DAL
     public class MovieContext : DbContext
     {
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        public MovieContext()
+            :base("name=VideoStoreDb")
+        {
+        }
+
+        /// <summary>
         /// Movies.
         /// </summary>
         public virtual DbSet<Movie> Movies { get; set; }
