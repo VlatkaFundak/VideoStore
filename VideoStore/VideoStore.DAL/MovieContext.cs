@@ -17,7 +17,7 @@ namespace VideoStore.DAL
         /// Constructor.
         /// </summary>
         public MovieContext()
-            :base("name=VideoStoreDb")
+            :base("VideoStoreDb")
         {
         }
 

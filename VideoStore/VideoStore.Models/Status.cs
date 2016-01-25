@@ -20,10 +20,5 @@ namespace VideoStore.Models
         /// Name.
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Collection of statuses.
-        /// </summary>
-        public ICollection<Status> Statuses { get; set; }
     }
 }

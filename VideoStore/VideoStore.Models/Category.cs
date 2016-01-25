@@ -20,10 +20,5 @@ namespace VideoStore.Models
         /// Name.
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Collection of movies.
-        /// </summary>
-        public virtual ICollection<Movie> Movies { get; set; }
     }
 }
