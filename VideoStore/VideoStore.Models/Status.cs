@@ -12,12 +12,12 @@ namespace VideoStore.Models
     public class Status
     {
         /// <summary>
-        /// Id.
+        /// Gets or sets id.
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Name.
+        /// Gets or sets name.
         /// </summary>
         public string Name { get; set; }
     }

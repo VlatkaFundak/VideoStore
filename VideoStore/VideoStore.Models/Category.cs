@@ -12,12 +12,12 @@ namespace VideoStore.Models
     public class Category
     {
         /// <summary>
-        /// Id.
+        /// Gets or sets id.
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Name.
+        /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
     }

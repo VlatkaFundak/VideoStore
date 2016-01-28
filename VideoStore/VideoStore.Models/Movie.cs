@@ -12,57 +12,57 @@ namespace VideoStore.Models
     public class Movie
     {
         /// <summary>
-        /// Id.
+        /// Gets or sets id.
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Category Id.
+        /// Gets or sets category Id.
         /// </summary>
         public Guid CategoryId { get; set; }
 
         /// <summary>
-        /// Status Id.
+        /// Gets or sets status id.
         /// </summary>
         public Guid StatusId { get; set; }
 
         /// <summary>
-        /// Name.
+        /// Gets or sets name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Description.
+        /// Gets or sets description.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Image url.
+        /// Gets or sets image url.
         /// </summary>
         public string ImageUrl { get; set; }
 
         /// <summary>
-        /// Rating.
+        /// Gets or sets rating.
         /// </summary>
         public double Rating { get; set; }
 
         /// <summary>
-        /// Date created.
+        /// Gets or sets date created.
         /// </summary>
         public DateTime DateCreated { get; set; }
 
         /// <summary>
-        /// Date updated.
+        /// Gets or sets date updated.
         /// </summary>
         public DateTime DateUpdated { get; set; }
 
         /// <summary>
-        /// Category.
+        /// Gets or sets category.
         /// </summary>
         public virtual Category Category { get; set; }
 
         /// <summary>
-        /// Status.
+        /// Gets or sets status.
         /// </summary>
         public virtual Status Status { get; set; }
     }

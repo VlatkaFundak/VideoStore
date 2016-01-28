@@ -9,10 +9,19 @@ using VideoStore.Models;
 
 namespace VideoStore.Repository
 {
+    /// <summary>
+    /// Movies repository class.
+    /// </summary>
     public class MoviesRepository
     {
+        /// <summary>
+        /// Gets or sets movie context.
+        /// </summary>
         MovieContext MovieContext { get; set; }
 
+        /// <summary>
+        /// New movie.
+        /// </summary>
         public void NewObject()
         {
             MovieContext = new MovieContext();
@@ -41,6 +50,10 @@ namespace VideoStore.Repository
             MovieContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Gets all movies.
+        /// </summary>
+        /// <returns>Movie context.</returns>
         public DbSet<Movie> GetAllMovies()
         {
             MovieContext = new MovieContext();
