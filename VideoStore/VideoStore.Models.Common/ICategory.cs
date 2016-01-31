@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideoStore.Models.Common;
 
-namespace VideoStore.Models
+namespace VideoStore.Models.Common
 {
     /// <summary>
-    /// Status class.
+    /// Category interface.
     /// </summary>
-    public class Status: IStatus
+    public interface ICategory
     {
         #region Properties
 
         /// <summary>
         /// Gets or sets identifier.
         /// </summary>
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets name.
+        /// Gets or sets the name.
         /// </summary>
-        public string Name { get; set; }
+        string Name { get; set; }
 
         #endregion
     }

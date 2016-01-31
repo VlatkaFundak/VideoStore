@@ -14,6 +14,7 @@ namespace VideoStore.Web.Controllers
         public ActionResult Index()
         {
             MoviesRepository GetMovies = new MoviesRepository();
+            //GetMovies.NewObject();
 
             return View(GetMovies.GetAllMovies().ToList());
         }

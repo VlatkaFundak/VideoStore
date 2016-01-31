@@ -3,71 +3,70 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideoStore.Models.Common;
 
-namespace VideoStore.Models
+namespace VideoStore.Models.Common
 {
     /// <summary>
-    /// Movie model class.
+    /// Movie interface.
     /// </summary>
-    public class Movie: IMovie
+    public interface IMovie
     {
         #region Properties
 
         /// <summary>
         /// Gets or sets identifier.
         /// </summary>
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets category identifier.
         /// </summary>
-        public Guid CategoryId { get; set; }
+        Guid CategoryId { get; set; }
 
         /// <summary>
         /// Gets or sets status identifier.
         /// </summary>
-        public Guid StatusId { get; set; }
+        Guid StatusId { get; set; }
 
         /// <summary>
         /// Gets or sets name.
         /// </summary>
-        public string Name { get; set; }
+        string Name { get; set; }
 
         /// <summary>
         /// Gets or sets description.
         /// </summary>
-        public string Description { get; set; }
+        string Description { get; set; }
 
         /// <summary>
         /// Gets or sets image url.
         /// </summary>
-        public string ImageUrl { get; set; }
+        string ImageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets rating.
         /// </summary>
-        public double Rating { get; set; }
+        double Rating { get; set; }
 
         /// <summary>
         /// Gets or sets date created.
         /// </summary>
-        public DateTime DateCreated { get; set; }
+        DateTime DateCreated { get; set; }
 
         /// <summary>
         /// Gets or sets date updated.
         /// </summary>
-        public DateTime DateUpdated { get; set; }
+        DateTime DateUpdated { get; set; }
 
         /// <summary>
         /// Gets or sets category.
-        /// </summary>  
-        public virtual ICategory Category { get; set; }
+        /// </summary>
+        ICategory Category { get; set; }
 
         /// <summary>
         /// Gets or sets status.
         /// </summary>
-        public virtual IStatus Status { get; set; }
+        IStatus Status { get; set; }
 
         #endregion
     }

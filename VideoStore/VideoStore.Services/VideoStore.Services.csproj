@@ -42,10 +42,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VideoStore.Common\VideoStore.Common.csproj">
-      <Project>{30b7e3fd-8ae6-4628-b7fc-80cdc3394351}</Project>
-      <Name>VideoStore.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\VideoStore.Models\VideoStore.Models.csproj">
       <Project>{683b503a-a37a-4d2e-9338-69ee185a6a76}</Project>
       <Name>VideoStore.Models</Name>
