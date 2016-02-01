@@ -6,15 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using VideoStore.DAL;
 using VideoStore.Models;
-//using VideoStore.Models.Common;
-//using VideoStore.Repository.Common;
+using VideoStore.Repository.Common;
 
 namespace VideoStore.Repository
 {
     /// <summary>
     /// Movies repository class.
     /// </summary>
-    public class MoviesRepository
+    public class MoviesRepository: IMoviesRepository
     {
         /// <summary>
         /// Gets or sets movie context.
@@ -56,7 +55,7 @@ namespace VideoStore.Repository
         /// Gets all movies.
         /// </summary>
         /// <returns>Movies.</returns>
-        public DbSet<Movie> GetAllMovies()
+        public IEnumerable<Movie> GetAllMovies()
         {
             MovieContext = new MovieContext();
 

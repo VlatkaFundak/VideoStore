@@ -127,13 +127,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VideoStore.Models.Common\VideoStore.Models.Common.csproj">
-      <Project>{fa23ebe8-bd97-4416-ada0-5d2a12da9fb6}</Project>
-      <Name>VideoStore.Models.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\VideoStore.Models\VideoStore.Models.csproj">
       <Project>{683b503a-a37a-4d2e-9338-69ee185a6a76}</Project>
       <Name>VideoStore.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VideoStore.Repository.Common\VideoStore.Repository.Common.csproj">
+      <Project>{e500d344-942f-4001-baa5-45fdda470273}</Project>
+      <Name>VideoStore.Repository.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\VideoStore.Repository\VideoStore.Repository.csproj">
       <Project>{c1fab81e-df8f-49aa-8ee4-2dac1d9ec1a7}</Project>

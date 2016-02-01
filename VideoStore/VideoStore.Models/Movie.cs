@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideoStore.Models.Common;
 
 namespace VideoStore.Models
 {
     /// <summary>
     /// Movie model class.
     /// </summary>
-    public class Movie: IMovie
+    public class Movie
     {
         #region Properties
 
@@ -62,12 +61,12 @@ namespace VideoStore.Models
         /// <summary>
         /// Gets or sets category.
         /// </summary>  
-        public virtual ICategory Category { get; set; }
+        public virtual Category Category { get; set; }
 
         /// <summary>
         /// Gets or sets status.
         /// </summary>
-        public virtual IStatus Status { get; set; }
+        public virtual Status Status { get; set; }
 
         #endregion
     }

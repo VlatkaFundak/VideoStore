@@ -44,12 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Status.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VideoStore.Models.Common\VideoStore.Models.Common.csproj">
-      <Project>{fa23ebe8-bd97-4416-ada0-5d2a12da9fb6}</Project>
-      <Name>VideoStore.Models.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VideoStore.Repository.Common;
 using VideoStore.Repository;
+
 
 namespace VideoStore.Web.Controllers
 {
@@ -13,7 +15,7 @@ namespace VideoStore.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            MoviesRepository GetMovies = new MoviesRepository();
+            IMoviesRepository GetMovies = new MoviesRepository();
             //GetMovies.NewObject();
 
             return View(GetMovies.GetAllMovies().ToList());

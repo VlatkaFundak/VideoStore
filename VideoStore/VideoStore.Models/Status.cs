@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideoStore.Models.Common;
 
 namespace VideoStore.Models
 {
     /// <summary>
     /// Status class.
     /// </summary>
-    public class Status: IStatus
+    public class Status
     {
         #region Properties
 
