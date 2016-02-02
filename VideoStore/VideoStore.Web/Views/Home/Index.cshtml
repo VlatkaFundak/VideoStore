@@ -13,6 +13,11 @@
         <th>@Html.Label("Rating")</th>
         <th>@Html.Label("Date created")</th>
         <th>@Html.Label("Date updated")</th>
+        <td>
+            <button>
+                @Html.ActionLink("+", "NewMovie", "Home")
+            </button>
+        </td>
     </tr>
 
     @foreach (var item in Model)
@@ -29,4 +34,4 @@
 
 </table>
 
-<button type="button" class="btn btn-default">Default</button>
+

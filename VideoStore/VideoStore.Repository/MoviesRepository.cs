@@ -19,6 +19,21 @@ namespace VideoStore.Repository
         /// Gets or sets movie context.
         /// </summary>
         MovieContext MovieContext { get; set; }
+        
+        /// <summary>
+        /// Gets all movies.
+        /// </summary>
+        /// <returns>Movies.</returns>
+        public IEnumerable<Movie> GetAllMovies()
+        {
+            MovieContext = new MovieContext();
+
+            return (MovieContext.Movies);
+        }
+
+
+
+
 
         ///<summary>
         ///New movie.
@@ -50,16 +65,5 @@ namespace VideoStore.Repository
 
         //    MovieContext.SaveChanges();
         //}
-
-        /// <summary>
-        /// Gets all movies.
-        /// </summary>
-        /// <returns>Movies.</returns>
-        public IEnumerable<Movie> GetAllMovies()
-        {
-            MovieContext = new MovieContext();
-
-            return (MovieContext.Movies);
-        }
     }
 }
