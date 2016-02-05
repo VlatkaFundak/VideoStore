@@ -23,5 +23,11 @@ namespace VideoStore.Repository.Common
         IEnumerable<Category> GetMovieCategories();
 
         void DeleteMovie(System.Guid id);
+
+        System.Guid AvailableStatus();
+
+        System.Guid RentedStatus();
+
+        void SaveStatusToBase();
     }
 }

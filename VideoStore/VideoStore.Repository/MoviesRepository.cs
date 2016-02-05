@@ -45,7 +45,7 @@ namespace VideoStore.Repository
         public void NewMovie(Movie movie)
         {
             movie.Id = Guid.NewGuid();
-            movie.Status = NewStatus();
+            movie.StatusId = AvailableStatus();
             movie.DateCreated = DateTime.Now;
             movie.DateUpdated = DateTime.Now;
 
@@ -62,15 +62,26 @@ namespace VideoStore.Repository
             return (MovieContext.Categories.ToList());
         }
 
-
-        public Status NewStatus()
+        //TODO: status ručno napisan, obrisati naknadno
+        public Guid AvailableStatus()
         {
             var Available = new Status();
             Available.Id = Guid.NewGuid();
             Available.Name = "Available";
             MovieContext.Statuses.Add(Available);
-            return (Available);
+            return (Available.Id);
         }
+
+        //TODO: status ručno napisan, obrisati naknadno
+        public Guid RentedStatus()
+        {
+            var Rented = new Status();
+            Rented.Id = Guid.NewGuid();
+            Rented.Name = "Rented";
+            MovieContext.Statuses.Add(Rented);
+            return(Rented.Id);
+        }
+
         //TODO: obrisati naknadno, kreiram ručno objekt tu
         ///<summary>
         ///New movie.
@@ -156,5 +167,12 @@ namespace VideoStore.Repository
             MovieContext.Movies.Remove(GetMovie(id));
             MovieContext.SaveChanges();
         }
+
+
+        public void SaveStatusToBase()
+        {
+            MovieContext.SaveChanges();
+        }
+
     }
 }

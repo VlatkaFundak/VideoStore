@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using VideoStore.Repository.Common;
 using VideoStore.Repository;
 using VideoStore.Models;
+using VideoStore.Services;
 
 namespace VideoStore.Web.Controllers
 {
@@ -75,9 +76,17 @@ namespace VideoStore.Web.Controllers
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Home page.</returns>
-        public ActionResult Delete(Guid id)
+        public ActionResult DeleteMovie(Guid id)
         {
             movieRepository.DeleteMovie(id);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult RentMovie (Guid id)
+        {
+            SetMovieStatusToRented setStatus = new SetMovieStatusToRented();
+            setStatus.Rent(id);
 
             return RedirectToAction("Index");
         }
