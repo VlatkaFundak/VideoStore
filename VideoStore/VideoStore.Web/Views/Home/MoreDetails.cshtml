@@ -1,0 +1,49 @@
+﻿@model VideoStore.Models.Movie
+           
+@{
+    ViewBag.Title = "MoreDetails";
+}
+
+<h2>Movies details</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+               @Model.Title (@Model.Year)
+            </td>
+            <td>
+                @Model.Status.Name
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Rating")
+            </td>
+            <td>
+                @Model.Rating
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Category")
+            </td>
+            <td>
+                @Model.Category.Name
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Description")</td>
+        </tr>
+        <tr>
+            <td>@Model.Description</td>
+        </tr>
+
+    </table>
+}
+
+
+
+
+@Html.ActionLink("Cancel", "Cancel")

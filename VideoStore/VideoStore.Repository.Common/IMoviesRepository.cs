@@ -14,6 +14,14 @@ namespace VideoStore.Repository.Common
         /// <returns>Movies.</returns>
         IEnumerable<Movie> GetAllMovies();
 
-        //void NewObject();
+        Movie GetMovie(System.Guid id);
+
+        void NewObject();
+
+        void NewMovie(Movie movie);
+
+        IEnumerable<Category> GetMovieCategories();
+
+        void DeleteMovie(System.Guid id);
     }
 }

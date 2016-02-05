@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace VideoStore.Models
 {
@@ -15,12 +16,13 @@ namespace VideoStore.Models
 
         /// <summary>
         /// Gets or sets identifier.
-        /// </summary>
+        /// </summary>        
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets category identifier.
         /// </summary>
+        [Required (ErrorMessage="Select a category")]
         public Guid CategoryId { get; set; }
 
         /// <summary>
@@ -31,21 +33,26 @@ namespace VideoStore.Models
         /// <summary>
         /// Gets or sets name.
         /// </summary>
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Enter title")]
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets description.
         /// </summary>
+        [Required(ErrorMessage = "Enter description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets image url.
         /// </summary>
+        //[Required(ErrorMessage = "Image url required")]
         public string ImageUrl { get; set; }
 
+        //TODO: pretvoriti u decimal
         /// <summary>
         /// Gets or sets rating.
         /// </summary>
+        //[Range(typeof(decimal),"0.00","10.00")]
         public double Rating { get; set; }
 
         /// <summary>
@@ -59,8 +66,15 @@ namespace VideoStore.Models
         public DateTime DateUpdated { get; set; }
 
         /// <summary>
+        /// Gets or sets year.
+        /// </summary>
+        [Required(ErrorMessage="Enter Year")]
+        public int Year { get; set; }
+
+        /// <summary>
         /// Gets or sets category.
         /// </summary>  
+        //[Required(ErrorMessage = "Select category")]
         public virtual Category Category { get; set; }
 
         /// <summary>

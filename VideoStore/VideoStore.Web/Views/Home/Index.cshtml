@@ -7,31 +7,28 @@
 
 <table class="table table-condensed">
     <tr class="active">
-        <th>@Html.Label("Name")</th>
+        <th>@Html.Label("Title")</th>
         <th>@Html.Label("Category")</th>
-        <th>@Html.Label("Status")</th>
         <th>@Html.Label("Rating")</th>
-        <th>@Html.Label("Date created")</th>
-        <th>@Html.Label("Date updated")</th>
+        <th>@Html.Label("Year")</th>
+        <th>@Html.Label("Status")</th>
         <td>
             <button>
-                @Html.ActionLink("+", "NewMovie", "Home")
+                @Html.ActionLink("+", "NewMovie", "Home", null, new { @class = "btn btn-primary" })
             </button>
         </td>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+        <tr onclick="location.href ='@Url.Action("MoreDetails","Home", new {id = item.Id})'">
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
             <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Status.Name)</td>
             <td>@Html.DisplayFor(modelItem => item.Rating)</td>
-            <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
-            <td>@Html.DisplayFor(modelItem => item.DateUpdated)</td>
+            <td>@Html.DisplayFor(modelItem => item.Year)</td>
+            <td>@Html.DisplayFor(modelItem => item.Status.Name)</td>
         </tr>
     }
 
 </table>
-
 

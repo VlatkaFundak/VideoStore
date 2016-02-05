@@ -8,22 +8,22 @@
 @using (Html.BeginForm())
 {
     <div>
-        @Html.TextBoxFor(model => model.Name, new { placeholder = "Name" })
+        @Html.TextBoxFor(model => model.Title, new { placeholder = "Name" })
         <br />
         @Html.TextBoxFor(model => model.Rating, new { placeholder = "Rating"})
         <br />
         @Html.TextBoxFor(model => model.ImageUrl, new { placeholder = "Image url"})
         <br />
         @Html.TextBoxFor(model => model.Description, new { placeholder = "Description"})
+        <br />
+        @Html.TextBoxFor(model => model.Year, new { placeholder = "Year"})
+        <br />
 
-        @*@Html.DropDownListFor(model => model.Category)*@
+        @Html.DropDownListFor(model => model.CategoryId,(SelectList)ViewBag.Categories,"Select a category")
 
         <br />
         <input type="submit" value="Save" />
-
-
     </div>
 }
-
 
 @Html.ActionLink("Cancel", "Cancel")
