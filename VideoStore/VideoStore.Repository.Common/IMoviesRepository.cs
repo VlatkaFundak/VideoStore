@@ -18,7 +18,7 @@ namespace VideoStore.Repository.Common
         /// Gets all statuses.
         /// </summary>
         /// <returns>Statuses.</returns>
-        IEnumerable<Status> GetAllStatuses();
+        IEnumerable<Status> GetMovieStatuses();
 
         /// <summary>
         /// Gets chosen movie.
@@ -37,7 +37,6 @@ namespace VideoStore.Repository.Common
         /// Creates new movie.
         /// </summary>
         /// <param name="movie">Movie.</param>
-        /// <returns>Movie.</returns>
         void NewMovie(Movie movie);
 
         /// <summary>

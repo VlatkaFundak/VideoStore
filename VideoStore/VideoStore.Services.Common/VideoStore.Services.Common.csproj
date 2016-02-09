@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D1407441-C86D-41EC-90A2-408177BAF644}</ProjectGuid>
+    <ProjectGuid>{9E0A50F6-B2EF-494D-8683-22A6979569B0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VideoStore.Services</RootNamespace>
-    <AssemblyName>VideoStore.Services</AssemblyName>
+    <RootNamespace>VideoStore.Services.Common</RootNamespace>
+    <AssemblyName>VideoStore.Services.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,25 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMoviesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MoviesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VideoStore.Models\VideoStore.Models.csproj">
       <Project>{683b503a-a37a-4d2e-9338-69ee185a6a76}</Project>
       <Name>VideoStore.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VideoStore.Repository.Common\VideoStore.Repository.Common.csproj">
-      <Project>{e500d344-942f-4001-baa5-45fdda470273}</Project>
-      <Name>VideoStore.Repository.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VideoStore.Repository\VideoStore.Repository.csproj">
-      <Project>{c1fab81e-df8f-49aa-8ee4-2dac1d9ec1a7}</Project>
-      <Name>VideoStore.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VideoStore.Services.Common\VideoStore.Services.Common.csproj">
-      <Project>{9e0a50f6-b2ef-494d-8683-22a6979569b0}</Project>
-      <Name>VideoStore.Services.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

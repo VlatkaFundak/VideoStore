@@ -1,9 +1,11 @@
 ﻿@model VideoStore.Models.Movie
 @{
-    ViewBag.Title = "NewMovie";
+    ViewBag.Title = "New Movie";
 }
 
 <h2>NewMovie</h2>
+
+@Html.ValidationSummary()
 
 @using (Html.BeginForm())
 {
@@ -24,6 +26,7 @@
         <br />
         <input type="submit" value="Save" />
     </div>
+    
 }
 
 @Html.ActionLink("Cancel", "Cancel")

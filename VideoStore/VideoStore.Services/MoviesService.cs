@@ -6,23 +6,34 @@ using System.Threading.Tasks;
 using VideoStore.Models;
 using VideoStore.Repository;
 using VideoStore.Repository.Common;
+using VideoStore.Services.Common;
 
 namespace VideoStore.Services
 {
-    public class SetMovieStatusToRented
+    public class MoviesService: IMoviesService
     {
+        #region Fields
+
         /// <summary>
         /// Movie repository.
         /// </summary>
         private IMoviesRepository movieRepository;
 
+        #endregion
+
+        #region Constructor
+
         /// <summary>
         /// Constructor.
         /// </summary>
-        public SetMovieStatusToRented()
+        public MoviesService()
         {
             movieRepository = new MoviesRepository();
         }
+
+        #endregion
+
+        #region Public methods
 
         /// <summary>
         /// Rents a movie.
@@ -33,7 +44,7 @@ namespace VideoStore.Services
             Movie movie = movieRepository.GetMovie(id);
             movie.DateExpired = DateTime.Now.AddDays(7);
 
-            movie.StatusId = movieRepository.GetAllStatuses().ToList().Where(item => item.Name == "Rented").First().Id;
+            movie.StatusId = movieRepository.GetMovieStatuses().ToList().Where(item => item.Name == "Rented").First().Id;
             movieRepository.SaveStatusToBase();
         }
 
@@ -45,7 +56,8 @@ namespace VideoStore.Services
         {
             Movie movie = movieRepository.GetMovie(id);
 
-            movie.StatusId = movieRepository.GetAllStatuses().ToList().Where(item => item.Name == "Available").First().Id;
+            movie.StatusId = movieRepository.GetMovieStatuses().ToList().Where(item => item.Name == "Available").First().Id;
+            movieRepository.SaveStatusToBase();
         }
 
         /// <summary>
@@ -68,5 +80,7 @@ namespace VideoStore.Services
 
             return movies;
         }
+
+        #endregion
     }
 }

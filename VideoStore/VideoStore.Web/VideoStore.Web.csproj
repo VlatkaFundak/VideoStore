@@ -143,6 +143,10 @@
       <Project>{c1fab81e-df8f-49aa-8ee4-2dac1d9ec1a7}</Project>
       <Name>VideoStore.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VideoStore.Services.Common\VideoStore.Services.Common.csproj">
+      <Project>{9e0a50f6-b2ef-494d-8683-22a6979569b0}</Project>
+      <Name>VideoStore.Services.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VideoStore.Services\VideoStore.Services.csproj">
       <Project>{d1407441-c86d-41ec-90a2-408177baf644}</Project>
       <Name>VideoStore.Services</Name>

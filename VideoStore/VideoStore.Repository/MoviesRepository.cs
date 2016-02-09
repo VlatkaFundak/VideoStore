@@ -15,10 +15,16 @@ namespace VideoStore.Repository
     /// </summary>
     public class MoviesRepository: IMoviesRepository
     {
+        #region Fields
+
         /// <summary>
         /// Gets or sets movie context.
         /// </summary>
         private MovieContext MovieContext;
+
+        #endregion
+
+        #region Constructor
 
         /// <summary>
         /// Constructor.
@@ -27,7 +33,11 @@ namespace VideoStore.Repository
         {
             MovieContext = new MovieContext();
         }
-        
+
+        #endregion
+
+        #region Public methods
+
         /// <summary>
         /// Gets all movies.
         /// </summary>
@@ -41,7 +51,7 @@ namespace VideoStore.Repository
         /// Gets all statuses.
         /// </summary>
         /// <returns>Statuses.</returns>
-        public IEnumerable<Status> GetAllStatuses()
+        public IEnumerable<Status> GetMovieStatuses()
         {
             return (MovieContext.Statuses);
         }
@@ -50,7 +60,6 @@ namespace VideoStore.Repository
         /// Creates new movie.
         /// </summary>
         /// <param name="movie">Movie.</param>
-        /// <returns>Movie.</returns>
         public void NewMovie(Movie movie)
         {
             movie.Id = Guid.NewGuid();
@@ -68,7 +77,7 @@ namespace VideoStore.Repository
         /// <returns>Categories.</returns>
         public IEnumerable<Category> GetMovieCategories()
         {
-            return (MovieContext.Categories.ToList());
+            return MovieContext.Categories.ToList();
         }
 
         //TODO: status ručno napisan, obrisati naknadno
@@ -184,7 +193,6 @@ namespace VideoStore.Repository
         /// <param name="id">Id of the movie.</param>
         public void DeleteMovie(Guid id)
         {
-            GetMovie(id);
             MovieContext.Movies.Remove(GetMovie(id));
             MovieContext.SaveChanges();
         }
@@ -196,6 +204,8 @@ namespace VideoStore.Repository
         {
             MovieContext.SaveChanges();
         }
+
+        #endregion
 
     }
 }

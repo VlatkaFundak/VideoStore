@@ -7,13 +7,14 @@ using VideoStore.Repository.Common;
 using VideoStore.Repository;
 using VideoStore.Models;
 using VideoStore.Services;
+using VideoStore.Services.Common;
 
 namespace VideoStore.Web.Controllers
 {
     public class HomeController : Controller
     {
         private IMoviesRepository movieRepository;
-        private SetMovieStatusToRented setStatus;
+        private IMoviesService setStatus;
 
         /// <summary>
         /// Constructor for home controller.
@@ -21,7 +22,7 @@ namespace VideoStore.Web.Controllers
         public HomeController()
         {
             movieRepository = new MoviesRepository();
-            setStatus = new SetMovieStatusToRented();
+            setStatus = new MoviesService();
         }
 
         // GET: Home
@@ -32,7 +33,10 @@ namespace VideoStore.Web.Controllers
             return View(setStatus.GetAllMovies().ToList());
         }
 
-        // GET: New movie
+        /// <summary>
+        /// Gets new movie.
+        /// </summary>
+        /// <returns>Index page.</returns>
         public ActionResult NewMovie()
         {
             ViewBag.Categories = new SelectList(movieRepository.GetMovieCategories(), "Id", "Name");
@@ -40,17 +44,21 @@ namespace VideoStore.Web.Controllers
             return View(new Movie());
         }
 
-        //POST: New movie
+        /// <summary>
+        /// Posts new movie.
+        /// </summary>
+        /// <param name="movie">Movie.</param>
+        /// <returns>Index page.</returns>
         [HttpPost]
         public ActionResult NewMovie(Movie movie)
         {
-            ViewBag.Categories = new SelectList(movieRepository.GetMovieCategories(), "Id", "Name");
-
             if (ModelState.IsValid)
-            {               
+            {
                 movieRepository.NewMovie(movie);
                 return RedirectToAction("Index");
             }
+
+            ViewBag.Categories = new SelectList(movieRepository.GetMovieCategories(), "Id", "Name");
 
             return View();
         }
@@ -97,6 +105,11 @@ namespace VideoStore.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Returns a movie.
+        /// </summary>
+        /// <param name="id">Id.</param>
+        /// <returns>Index page.</returns>
         public ActionResult ReturnMovie (Guid id)
         {
             setStatus.ReturnMovie(id);
