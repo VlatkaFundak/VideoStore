@@ -13,6 +13,7 @@ namespace VideoStore.Web.Controllers
     public class HomeController : Controller
     {
         private IMoviesRepository movieRepository;
+        private SetMovieStatusToRented setStatus;
 
         /// <summary>
         /// Constructor for home controller.
@@ -20,14 +21,15 @@ namespace VideoStore.Web.Controllers
         public HomeController()
         {
             movieRepository = new MoviesRepository();
+            setStatus = new SetMovieStatusToRented();
         }
 
         // GET: Home
         public ActionResult Index()
         {
             //movieRepository.NewObject();
-
-            return View(movieRepository.GetAllMovies().ToList());
+            
+            return View(setStatus.GetAllMovies().ToList());
         }
 
         // GET: New movie
@@ -83,10 +85,21 @@ namespace VideoStore.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Rents a movie.
+        /// </summary>
+        /// <param name="id">Id.</param>
+        /// <returns>Home page.</returns>
         public ActionResult RentMovie (Guid id)
         {
-            SetMovieStatusToRented setStatus = new SetMovieStatusToRented();
             setStatus.Rent(id);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ReturnMovie (Guid id)
+        {
+            setStatus.ReturnMovie(id);
 
             return RedirectToAction("Index");
         }

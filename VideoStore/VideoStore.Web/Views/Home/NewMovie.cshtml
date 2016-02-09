@@ -10,13 +10,13 @@
     <div>
         @Html.TextBoxFor(model => model.Title, new { placeholder = "Name" })
         <br />
-        @Html.TextBoxFor(model => model.Rating, new { placeholder = "Rating"})
+        @Html.TextBoxFor(model => model.Rating, new { placeholder = "Rating", @Value = "" })
         <br />
         @Html.TextBoxFor(model => model.ImageUrl, new { placeholder = "Image url"})
         <br />
         @Html.TextBoxFor(model => model.Description, new { placeholder = "Description"})
         <br />
-        @Html.TextBoxFor(model => model.Year, new { placeholder = "Year"})
+        @Html.TextBoxFor(model => model.Year, new { placeholder = "Year", @Value = "" })
         <br />
 
         @Html.DropDownListFor(model => model.CategoryId,(SelectList)ViewBag.Categories,"Select a category")

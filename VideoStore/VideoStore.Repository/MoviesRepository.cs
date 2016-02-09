@@ -38,6 +38,15 @@ namespace VideoStore.Repository
         }
 
         /// <summary>
+        /// Gets all statuses.
+        /// </summary>
+        /// <returns>Statuses.</returns>
+        public IEnumerable<Status> GetAllStatuses()
+        {
+            return (MovieContext.Statuses);
+        }
+
+        /// <summary>
         /// Creates new movie.
         /// </summary>
         /// <param name="movie">Movie.</param>
@@ -45,7 +54,7 @@ namespace VideoStore.Repository
         public void NewMovie(Movie movie)
         {
             movie.Id = Guid.NewGuid();
-            movie.StatusId = AvailableStatus();
+            movie.StatusId = MovieContext.Statuses.Where(item => String.Equals(item.Name, "Available")).First().Id;
             movie.DateCreated = DateTime.Now;
             movie.DateUpdated = DateTime.Now;
 
@@ -80,6 +89,16 @@ namespace VideoStore.Repository
             Rented.Name = "Rented";
             MovieContext.Statuses.Add(Rented);
             return(Rented.Id);
+        }
+
+        //TODO: status ručno napisan, obrisati naknadno
+        public Guid ExpiredRent()
+        {
+            var expiredRent = new Status();
+            expiredRent.Id = Guid.NewGuid();
+            expiredRent.Name = "Rented(exp)!";
+            MovieContext.Statuses.Add(expiredRent);
+            return (expiredRent.Id);
         }
 
         //TODO: obrisati naknadno, kreiram ručno objekt tu
@@ -124,22 +143,24 @@ namespace VideoStore.Repository
             Meet_The_Millers.Description = "Comedy movie";
             Meet_The_Millers.Rating = 7.9;
             Meet_The_Millers.Year = 2012;
+            Meet_The_Millers.ImageUrl = "https://ireckonthat.files.wordpress.com/2014/03/were-the-millers2.jpg";
             Meet_The_Millers.DateCreated = DateTime.Now;
             Meet_The_Millers.DateUpdated = DateTime.Now;
             Meet_The_Millers.CategoryId = Comedy.Id;
-            Meet_The_Millers.StatusId = Available.Id;
+            Meet_The_Millers.StatusId = AvailableStatus();
             MovieContext.Movies.Add(Meet_The_Millers);
 
             var Minions = new Movie();
             Minions.Id = Guid.NewGuid();
             Minions.Title = "Minions";
             Minions.Description = "Animated";
-            Minions.Rating = 7.9;
+            Minions.Rating = 7.1;
             Minions.Year = 2015;
+            Minions.ImageUrl = "http://blogs-images.forbes.com/dorothypomerantz/files/2015/07/minions_2015-wide.jpg";
             Minions.DateCreated = DateTime.Now;
             Minions.DateUpdated = DateTime.Now;
             Minions.CategoryId = Action.Id;
-            Minions.StatusId = Available.Id;
+            Minions.StatusId = AvailableStatus();
             MovieContext.Movies.Add(Minions);
 
             MovieContext.SaveChanges();
@@ -168,7 +189,9 @@ namespace VideoStore.Repository
             MovieContext.SaveChanges();
         }
 
-
+        /// <summary>
+        /// Saves data to base.
+        /// </summary>
         public void SaveStatusToBase()
         {
             MovieContext.SaveChanges();

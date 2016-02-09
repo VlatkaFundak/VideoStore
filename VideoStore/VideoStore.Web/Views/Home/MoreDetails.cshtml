@@ -46,12 +46,19 @@
 
 <br />
 
-
-    @Html.ActionLink("Delete movie", "DeleteMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
-
-
+@if (Model.Status.Name == "Available")
+{
     @Html.ActionLink("Rent Movie", "RentMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
+}
 
+@if (Model.Status.Name == "Rented(exp)!"  || Model.Status.Name == "Rented")
+{
+    @Html.ActionLink("Extend Rent", "RentMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
+
+     @Html.ActionLink("Return Movie", "ReturnMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
+}
+
+@Html.ActionLink("Delete movie", "DeleteMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
 
 
 @Html.ActionLink("Cancel", "Cancel")

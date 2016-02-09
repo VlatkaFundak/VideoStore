@@ -22,7 +22,7 @@ namespace VideoStore.Models
         /// <summary>
         /// Gets or sets category identifier.
         /// </summary>
-        [Required (ErrorMessage="Select a category")]
+        //[Required (ErrorMessage="Select a category")]
         public Guid CategoryId { get; set; }
 
         /// <summary>
@@ -81,6 +81,9 @@ namespace VideoStore.Models
         /// Gets or sets status.
         /// </summary>
         public virtual Status Status { get; set; }
+        
+
+        public DateTime? DateExpired { get; set; }
 
         #endregion
     }
