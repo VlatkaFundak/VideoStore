@@ -27,12 +27,6 @@ namespace VideoStore.Repository.Common
         /// <returns>Movie.</returns>
         Movie GetMovie(System.Guid id);
 
-        //TODO: obrisati naknadno, kreiram ručno objekt tu
-        ///<summary>
-        ///New movie.
-        ///</summary>
-        void NewObject();
-
         /// <summary>
         /// Creates new movie.
         /// </summary>
@@ -50,15 +44,6 @@ namespace VideoStore.Repository.Common
         /// </summary>
         /// <param name="id">Id of the movie.</param>
         void DeleteMovie(System.Guid id);
-
-        //TODO: obrisati naknadno, kreiram ručno objekt tu
-        System.Guid AvailableStatus();
-
-        //TODO: obrisati naknadno, kreiram ručno objekt tu
-        System.Guid RentedStatus();
-
-        //TODO: obrisati naknadno, kreiram ručno objekt tu
-        System.Guid ExpiredRent();
 
         /// <summary>
         /// Saves data to base.

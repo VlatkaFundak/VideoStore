@@ -28,8 +28,6 @@ namespace VideoStore.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            //movieRepository.NewObject();
-            
             return View(setStatus.GetAllMovies().ToList());
         }
 

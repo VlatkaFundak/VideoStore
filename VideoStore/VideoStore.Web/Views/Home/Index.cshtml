@@ -17,16 +17,43 @@
         </td>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var movie in Model)
     {
-        <tr onclick="location.href ='@Url.Action("MoreDetails","Home", new {id = item.Id})'">
-            <td>@Html.DisplayFor(modelItem => item.Title)</td>
-            <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Rating)</td>
-            <td>@Html.DisplayFor(modelItem => item.Year)</td>
-            <td>@Html.DisplayFor(modelItem => item.Status.Name)</td>
+        var movieClass = String.Empty;
+
+        if (movie.Status.Name == "Available")
+        {
+            movieClass = "yellow";
+        }
+        else if (movie.Status.Name == "Rented")
+        {
+            movieClass = "green";
+        }
+        else if (movie.Status.Name == "Rented(exp)!")
+        {
+            movieClass = "red";            
+        }
+
+        <tr onclick="location.href ='@Url.Action("MoreDetails","Home", new {id = movie.Id})'" class=@movieClass>
+            <td>@Html.DisplayFor(modelItem => movie.Title)</td>
+            <td>@Html.DisplayFor(modelItem => movie.Category.Name)</td>
+            <td>@Html.DisplayFor(modelItem => movie.Rating)</td>
+            <td>@Html.DisplayFor(modelItem => movie.Year)</td>
+            <td>@Html.DisplayFor(modelItem => movie.Status.Name)</td>
         </tr>
     }
 
 </table>
+
+
+
+
+
+
+
+
+
+
+
+
 

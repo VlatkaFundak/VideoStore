@@ -19,7 +19,7 @@ namespace VideoStore.DAL
         public MovieContext()
             :base("VideoStoreDb")
         {
-            Database.SetInitializer<MovieContext>(new DropCreateDatabaseIfModelChanges<MovieContext>());
+            Database.SetInitializer<MovieContext>(new MovieDbInitializer());
         }
 
         /// <summary>

@@ -72,7 +72,7 @@ namespace VideoStore.Services
             {
                 if (item.DateExpired <= DateTime.Now)
                 {
-                    item.StatusId = movieRepository.ExpiredRent();
+                    item.StatusId = movieRepository.GetMovieStatuses().ToList().Where(model => model.Name == "Rented(exp)!").First().Id;
                 }
             }
 

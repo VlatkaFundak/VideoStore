@@ -1,2 +1,31 @@
 ﻿body {
 }
+
+
+textarea {
+    resize: none;
+}
+
+.validation-summary-errors{
+    background-color:#FFFF66;
+    border-style: inset;
+    border-radius: 15px;
+}
+
+.validation-summary-errors ul{
+    color: #b2423f;
+    font-family: Georgia;
+    font-style: oblique;
+}
+
+.yellow{
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: firebrick;
+}
