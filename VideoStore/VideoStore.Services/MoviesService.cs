@@ -57,9 +57,10 @@ namespace VideoStore.Services
             Movie movie = movieRepository.GetMovie(id);
 
             movie.StatusId = movieRepository.GetMovieStatuses().ToList().Where(item => item.Name == "Available").First().Id;
+            movie.DateExpired = null;
             movieRepository.SaveStatusToBase();
         }
-
+        
         /// <summary>
         /// Gets all movies.
         /// </summary>
@@ -67,12 +68,13 @@ namespace VideoStore.Services
         public IEnumerable<Movie> GetAllMovies()
         {
             IEnumerable<Movie> movies = movieRepository.GetAllMovies();
+            var listOfStatuses = movieRepository.GetMovieStatuses().ToList();
 
             foreach (var item in movies)
             {
                 if (item.DateExpired <= DateTime.Now)
-                {
-                    item.StatusId = movieRepository.GetMovieStatuses().ToList().Where(model => model.Name == "Rented(exp)!").First().Id;
+                {                
+                    item.StatusId = listOfStatuses.Where(model => model.Name == "Rented(exp)!").First().Id;
                 }
             }
 

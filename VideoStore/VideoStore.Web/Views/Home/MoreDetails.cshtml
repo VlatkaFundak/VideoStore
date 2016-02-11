@@ -1,5 +1,5 @@
 ﻿@model VideoStore.Models.Movie
-           
+
 @{
     ViewBag.Title = "More Details";
 }
@@ -8,40 +8,53 @@
 
 @using (Html.BeginForm())
 {
-    <table>
-        <tr>
-            <td>
-               @Model.Title (@Model.Year)
-            </td>
-            <td>
-                @Model.Status.Name
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Rating")
-            </td>
-            <td>
-                @Model.Rating
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Category")
-            </td>
-            <td>
-                @Model.Category.Name
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.Label("Description")</td>
-        </tr>
-        <tr>
-            <td>@Model.Description</td>
-            <td><img src="@Model.ImageUrl" style="width:500px;height:300px"/></td>
-        </tr>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>
+                @Model.Title (@Model.Year)
 
-    </table>
+            </h3>
+        </div>
+        <div class="col-md-6">
+            <h3>
+                <span class="pull-right text-warning">
+                    @Model.Status.Name
+                </span>
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <tr>
+                    <td class="col-md-6">
+                        @Html.Label("Rating")
+                    </td>
+                    <td>
+                        @Model.Rating
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Category")
+                    </td>
+                    <td>
+                        @Model.Category.Name
+                    </td>
+                </tr>
+             </table>
+            <div>
+                @Html.Label("Description")
+            </div>
+            <div>
+                @Model.Description
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <img src="@Model.ImageUrl" style="width:500px; height:400px" />
+        </div>
+    </div>
 }
 
 <br />
@@ -51,11 +64,11 @@
     @Html.ActionLink("Rent Movie", "RentMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
 }
 
-@if (Model.Status.Name == "Rented(exp)!"  || Model.Status.Name == "Rented")
+@if (Model.Status.Name == "Rented(exp)!" || Model.Status.Name == "Rented")
 {
     @Html.ActionLink("Extend Rent", "RentMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
 
-     @Html.ActionLink("Return Movie", "ReturnMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Return Movie", "ReturnMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
 }
 
 @Html.ActionLink("Delete movie", "DeleteMovie", new { id = Model.Id }, new { @class = "btn btn-primary" })
