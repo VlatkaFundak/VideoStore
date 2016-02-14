@@ -65,11 +65,11 @@ namespace VideoStore.Services
         /// Gets all movies.
         /// </summary>
         /// <returns>Movies.</returns>
-        public IEnumerable<Movie> GetAllMovies()
+        public IEnumerable<Movie> GetAllMovies(string sortBy)
         {
             IEnumerable<Movie> movies = movieRepository.GetAllMovies();
             var listOfStatuses = movieRepository.GetMovieStatuses().ToList();
-
+            
             foreach (var item in movies)
             {
                 if (item.DateExpired <= DateTime.Now)
@@ -78,7 +78,31 @@ namespace VideoStore.Services
                 }
             }
 
-            movieRepository.SaveStatusToBase();
+            movieRepository.SaveStatusToBase();         
+            movies = from s in movies
+                          select s;
+
+            switch (sortBy)
+            {
+                case "Title desc":
+                    movies = movies.OrderByDescending(s => s.Title);
+                    break;
+                case "Category":
+                    movies = movies.OrderBy(s => s.Category.Name);
+                    break;
+                case "Category desc":
+                    movies = movies.OrderByDescending(s => s.Category.Name);
+                    break;
+                case "Rating desc":
+                    movies = movies.OrderByDescending(s => s.Rating);
+                    break;
+                case "Rating":
+                    movies = movies.OrderBy(s => s.Rating);
+                    break;
+                default:
+                    movies = movies.OrderBy(s => s.Title);
+                    break;
+            }
 
             return movies;
         }

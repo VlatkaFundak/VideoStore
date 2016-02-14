@@ -25,6 +25,6 @@ namespace VideoStore.Services.Common
         /// Gets all movies.
         /// </summary>
         /// <returns>Movies.</returns>
-        IEnumerable<Movie> GetAllMovies();
+        IEnumerable<Movie> GetAllMovies(string sortBy);
     }
 }

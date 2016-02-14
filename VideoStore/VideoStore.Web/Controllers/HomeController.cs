@@ -8,13 +8,21 @@ using VideoStore.Repository;
 using VideoStore.Models;
 using VideoStore.Services;
 using VideoStore.Services.Common;
+using PagedList;
+using PagedList.Mvc;
 
 namespace VideoStore.Web.Controllers
 {
     public class HomeController : Controller
     {
+        #region Fields
+
         private IMoviesRepository movieRepository;
-        private IMoviesService setStatus;
+        private IMoviesService movieService;
+
+        #endregion
+
+        #region Constructor
 
         /// <summary>
         /// Constructor for home controller.
@@ -22,13 +30,24 @@ namespace VideoStore.Web.Controllers
         public HomeController()
         {
             movieRepository = new MoviesRepository();
-            setStatus = new MoviesService();
+            movieService = new MoviesService();
         }
 
+        #endregion
+
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(int? page, string sortBy)
         {
-            return View(setStatus.GetAllMovies().ToList());
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.SortTitleParameter = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
+            ViewBag.SortCategoryParameter = sortBy == "Category" ? "Category desc" : "Category";
+            ViewBag.SortRatingParameter = sortBy == "Rating" ? "Rating desc" : "Rating";
+
+            List<Movie> movies = movieService.GetAllMovies(sortBy).ToList();           
+
+            return View(movies.ToPagedList(pageNumber, pageSize));
         }
 
         /// <summary>
@@ -98,7 +117,7 @@ namespace VideoStore.Web.Controllers
         /// <returns>Home page.</returns>
         public ActionResult RentMovie (Guid id)
         {
-            setStatus.Rent(id);
+            movieService.Rent(id);
 
             return RedirectToAction("Index");
         }
@@ -110,7 +129,7 @@ namespace VideoStore.Web.Controllers
         /// <returns>Index page.</returns>
         public ActionResult ReturnMovie (Guid id)
         {
-            setStatus.ReturnMovie(id);
+            movieService.ReturnMovie(id);
 
             return RedirectToAction("Index");
         }

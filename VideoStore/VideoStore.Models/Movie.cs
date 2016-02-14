@@ -34,7 +34,6 @@ namespace VideoStore.Models
         /// <summary>
         /// Gets or sets rating.
         /// </summary>
-        //[Range(typeof(decimal),"0.00","10.00")]
         public double Rating { get; set; }
         
         /// <summary>
