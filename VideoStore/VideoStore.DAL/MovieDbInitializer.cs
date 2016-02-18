@@ -71,7 +71,7 @@ namespace VideoStore.DAL
                 Minions.ImageUrl = "http://blogs-images.forbes.com/dorothypomerantz/files/2015/07/minions_2015-wide.jpg";
                 Minions.DateCreated = DateTime.Now;
                 Minions.DateUpdated = DateTime.Now;
-                Minions.CategoryId = Comedy.Id;
+                Minions.CategoryId = Animated.Id;
                 Minions.StatusId = Available.Id;
                 context.Movies.Add(Minions);
             }

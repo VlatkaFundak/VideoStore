@@ -8,11 +8,8 @@ namespace VideoStore.Repository.Common
     /// </summary>
     public interface IMoviesRepository
     {
-        /// <summary>
-        /// Gets all movies.
-        /// </summary>
-        /// <returns>Movies.</returns>
-        IEnumerable<Movie> GetAllMovies();
+
+        IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize);
 
         /// <summary>
         /// Gets all statuses.

@@ -13,7 +13,7 @@ namespace VideoStore.Services.Common
         /// Rents a movie.
         /// </summary>
         /// <param name="id">Id.</param>
-        void Rent(Guid id);
+        void RentMovie(Guid id);
 
         /// <summary>
         /// Returns movie.
@@ -25,6 +25,44 @@ namespace VideoStore.Services.Common
         /// Gets all movies.
         /// </summary>
         /// <returns>Movies.</returns>
-        IEnumerable<Movie> GetAllMovies(string sortBy);
+        IEnumerable<Movie> GetAllMovies(string sortBy, int pageNumber, int pageSize);
+
+        /// <summary>
+        /// Changes status of the movie.
+        /// </summary>
+        /// <returns>Movie.</returns>
+        void MoviesChangedStatus(IEnumerable<Movie> movies, int pageNumber, int pageSize);
+
+        /// <summary>
+        /// Gets certain movie.
+        /// </summary>
+        /// <param name="id">Id.</param>
+        /// <returns>Movie.</returns>
+        Movie GetMovie(System.Guid id);
+
+        /// <summary>
+        /// Creates new movie.
+        /// </summary>
+        /// <param name="movie">Movie.</param>
+        void NewMovie(Movie movie);
+
+        /// <summary>
+        /// Deletes movie.
+        /// </summary>
+        /// <param name="id">Id of the movie.</param>
+        void DeleteMovie(System.Guid id);
+
+        /// <summary>
+        /// Gets all statuses.
+        /// </summary>
+        /// <returns>Statuses.</returns>
+        IEnumerable<Status> GetMovieStatuses();
+
+        /// <summary>
+        /// Gets movie categories.
+        /// </summary>
+        /// <returns>Categories.</returns>
+        IEnumerable<Category> GetMovieCategories();
+
     }
 }

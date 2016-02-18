@@ -8,6 +8,9 @@ using VideoStore.DAL;
 using VideoStore.Models;
 using VideoStore.Repository.Common;
 
+using PagedList;
+using PagedList.Mvc;
+
 namespace VideoStore.Repository
 {
     /// <summary>
@@ -39,21 +42,36 @@ namespace VideoStore.Repository
         #region Public methods
 
         /// <summary>
-        /// Gets all movies.
+        /// Gets certain movie.
         /// </summary>
-        /// <returns>Movies.</returns>
-        public IEnumerable<Movie> GetAllMovies()
+        /// <param name="id">Id.</param>
+        /// <returns>Movie.</returns>
+        public Movie GetMovie(Guid id)
         {
-            return (MovieContext.Movies);
+            try
+            {
+                var selectedMovie = MovieContext.Movies.ToList().Find(item => item.Id == id);
+
+                return selectedMovie;
+            }
+            catch (Exception e)
+            {
+                
+                throw e;
+            }
         }
 
-        /// <summary>
-        /// Gets all statuses.
-        /// </summary>
-        /// <returns>Statuses.</returns>
-        public IEnumerable<Status> GetMovieStatuses()
+
+        public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
         {
-            return (MovieContext.Statuses);
+            try
+            {
+                return MovieContext.Movies.OrderBy(item => item.Title).ToPagedList(pageNumber, pageSize).AsEnumerable();
+            }
+            catch (Exception e)
+            {                
+                throw e;
+            }
         }
 
         /// <summary>
@@ -63,12 +81,64 @@ namespace VideoStore.Repository
         public void NewMovie(Movie movie)
         {
             movie.Id = Guid.NewGuid();
-            movie.StatusId = MovieContext.Statuses.Where(item => String.Equals(item.Name, "Available")).First().Id;
-            movie.DateCreated = DateTime.Now;
-            movie.DateUpdated = DateTime.Now;
 
-            MovieContext.Movies.Add(movie);
-            MovieContext.SaveChanges();
+            try
+            {
+                movie.StatusId = MovieContext.Statuses.Where(item => String.Equals(item.Name, "Available")).First().Id;
+                movie.DateCreated = DateTime.Now;
+                movie.DateUpdated = DateTime.Now;
+
+                MovieContext.Movies.Add(movie);
+                MovieContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                
+                throw e;
+            }
+        }
+        
+        /// <summary>
+        /// Deletes movie.
+        /// </summary>
+        /// <param name="id">Id of the movie.</param>
+        public void DeleteMovie(Guid id)
+        {
+            try
+            {
+                MovieContext.Movies.Remove(GetMovie(id));
+                MovieContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Saves data to base.
+        /// </summary>
+        public void SaveStatusToBase()
+        {
+            try
+            {
+                MovieContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Gets all statuses.
+        /// </summary>
+        /// <returns>Statuses.</returns>
+        public IEnumerable<Status> GetMovieStatuses()
+        {
+            return MovieContext.Statuses;
         }
 
         /// <summary>
@@ -77,37 +147,7 @@ namespace VideoStore.Repository
         /// <returns>Categories.</returns>
         public IEnumerable<Category> GetMovieCategories()
         {
-            return MovieContext.Categories.ToList();
-        }
-
-        /// <summary>
-        /// Gets chosen movie.
-        /// </summary>
-        /// <param name="id">Id.</param>
-        /// <returns>Movie.</returns>
-        public Movie GetMovie(Guid id)
-        {
-            var selectedMovie = MovieContext.Movies.ToList().Find(item => item.Id == id);
-
-            return (selectedMovie);
-        }
-
-        /// <summary>
-        /// Deletes movie.
-        /// </summary>
-        /// <param name="id">Id of the movie.</param>
-        public void DeleteMovie(Guid id)
-        {
-            MovieContext.Movies.Remove(GetMovie(id));
-            MovieContext.SaveChanges();
-        }
-
-        /// <summary>
-        /// Saves data to base.
-        /// </summary>
-        public void SaveStatusToBase()
-        {
-            MovieContext.SaveChanges();
+            return MovieContext.Categories;
         }
 
         #endregion

@@ -39,7 +39,7 @@ namespace VideoStore.Services
         /// Rents a movie.
         /// </summary>
         /// <param name="id">Id.</param>
-        public void Rent(Guid id)
+        public void RentMovie(Guid id)
         {
             Movie movie = movieRepository.GetMovie(id);
             movie.DateExpired = DateTime.Now.AddDays(7);
@@ -62,23 +62,33 @@ namespace VideoStore.Services
         }
         
         /// <summary>
-        /// Gets all movies.
+        /// Changes status of the movie.
         /// </summary>
-        /// <returns>Movies.</returns>
-        public IEnumerable<Movie> GetAllMovies(string sortBy)
+        /// <returns>Movie.</returns>
+        public void MoviesChangedStatus(IEnumerable<Movie> movies, int pageNumber, int pageSize)
         {
-            IEnumerable<Movie> movies = movieRepository.GetAllMovies();
-            var listOfStatuses = movieRepository.GetMovieStatuses().ToList();
-            
+            movies = movieRepository.GetAllMovies(pageNumber, pageSize);
+            var listOfStatuses = movieRepository.GetMovieStatuses();
+
             foreach (var item in movies)
             {
                 if (item.DateExpired <= DateTime.Now)
-                {                
+                {
                     item.StatusId = listOfStatuses.Where(model => model.Name == "Rented(exp)!").First().Id;
                 }
             }
 
-            movieRepository.SaveStatusToBase();         
+            movieRepository.SaveStatusToBase();
+        }
+        
+        /// <summary>
+        /// Gets all movies.
+        /// </summary>
+        /// <returns>Movies.</returns>
+        public IEnumerable<Movie> GetAllMovies(string sortBy, int pageNumber, int pageSize)
+        {
+            IEnumerable<Movie> movies = movieRepository.GetAllMovies(pageNumber, pageSize);
+              
             movies = from s in movies
                           select s;
 
@@ -105,6 +115,52 @@ namespace VideoStore.Services
             }
 
             return movies;
+        }
+
+        /// <summary>
+        /// Gets certain movie.
+        /// </summary>
+        /// <param name="id">Id.</param>
+        /// <returns>Movie.</returns>
+        public Movie GetMovie (Guid id)
+        {
+            return movieRepository.GetMovie(id);
+        }
+
+        /// <summary>
+        /// Creates new movie.
+        /// </summary>
+        /// <param name="movie">Movie.</param>
+        public void NewMovie(Movie movie)
+        {
+            movieRepository.NewMovie(movie);
+        }
+
+        /// <summary>
+        /// Deletes movie.
+        /// </summary>
+        /// <param name="id">Id of the movie.</param>
+        public void DeleteMovie (Guid id)
+        {
+            movieRepository.DeleteMovie(id);
+        }
+
+        /// <summary>
+        /// Gets all statuses.
+        /// </summary>
+        /// <returns>Statuses.</returns>
+        public IEnumerable<Status> GetMovieStatuses()
+        {
+            return movieRepository.GetMovieStatuses().ToList();
+        }
+              
+        /// <summary>
+        /// Gets movie categories.
+        /// </summary>
+        /// <returns>Categories.</returns>
+        public IEnumerable<Category> GetMovieCategories()
+        {
+            return movieRepository.GetMovieCategories().ToList();
         }
 
         #endregion

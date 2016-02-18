@@ -147,14 +147,6 @@
       <Project>{683b503a-a37a-4d2e-9338-69ee185a6a76}</Project>
       <Name>VideoStore.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VideoStore.Repository.Common\VideoStore.Repository.Common.csproj">
-      <Project>{e500d344-942f-4001-baa5-45fdda470273}</Project>
-      <Name>VideoStore.Repository.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VideoStore.Repository\VideoStore.Repository.csproj">
-      <Project>{c1fab81e-df8f-49aa-8ee4-2dac1d9ec1a7}</Project>
-      <Name>VideoStore.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\VideoStore.Services.Common\VideoStore.Services.Common.csproj">
       <Project>{9e0a50f6-b2ef-494d-8683-22a6979569b0}</Project>
       <Name>VideoStore.Services.Common</Name>

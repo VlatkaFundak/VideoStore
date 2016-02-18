@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using VideoStore.Repository.Common;
-using VideoStore.Repository;
 using VideoStore.Models;
 using VideoStore.Services;
 using VideoStore.Services.Common;
@@ -17,7 +15,6 @@ namespace VideoStore.Web.Controllers
     {
         #region Fields
 
-        private IMoviesRepository movieRepository;
         private IMoviesService movieService;
 
         #endregion
@@ -29,25 +26,25 @@ namespace VideoStore.Web.Controllers
         /// </summary>
         public HomeController()
         {
-            movieRepository = new MoviesRepository();
             movieService = new MoviesService();
         }
 
         #endregion
 
         // GET: Home
-        public ActionResult Index(int? page, string sortBy)
+        public ActionResult Index(string sortBy, int? page, int pageSize = 12)
         {
-            int pageSize = 12;
-            int pageNumber = (page ?? 1);
-
+            ViewBag.CurrentSort = sortBy;
             ViewBag.SortTitleParameter = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
             ViewBag.SortCategoryParameter = sortBy == "Category" ? "Category desc" : "Category";
             ViewBag.SortRatingParameter = sortBy == "Rating" ? "Rating desc" : "Rating";
 
-            List<Movie> movies = movieService.GetAllMovies(sortBy).ToList();           
+            int pageNumber = (page ?? 1);
 
-            return View(movies.ToPagedList(pageNumber, pageSize));
+            IEnumerable<Movie> movies = movieService.GetAllMovies(sortBy,pageNumber,pageSize).ToPagedList(pageNumber,pageSize);
+            movieService.MoviesChangedStatus(movies, pageNumber, pageSize);
+
+            return View(movies);
         }
 
         /// <summary>
@@ -56,7 +53,7 @@ namespace VideoStore.Web.Controllers
         /// <returns>Index page.</returns>
         public ActionResult NewMovie()
         {
-            ViewBag.Categories = new SelectList(movieRepository.GetMovieCategories(), "Id", "Name");
+            ViewBag.Categories = new SelectList(movieService.GetMovieCategories(), "Id", "Name");
 
             return View(new Movie());
         }
@@ -71,11 +68,11 @@ namespace VideoStore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                movieRepository.NewMovie(movie);
+                movieService.NewMovie(movie);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Categories = new SelectList(movieRepository.GetMovieCategories(), "Id", "Name");
+            ViewBag.Categories = new SelectList(movieService.GetMovieCategories(), "Id", "Name");
 
             return View();
         }
@@ -95,7 +92,7 @@ namespace VideoStore.Web.Controllers
         /// <returns>More details page.</returns>
         public ActionResult MoreDetails(Guid id)
         {            
-            return View(movieRepository.GetMovie(id));
+            return View(movieService.GetMovie(id));
         }
 
         /// <summary>
@@ -105,7 +102,7 @@ namespace VideoStore.Web.Controllers
         /// <returns>Home page.</returns>
         public ActionResult DeleteMovie(Guid id)
         {
-            movieRepository.DeleteMovie(id);
+            movieService.DeleteMovie(id);
 
             return RedirectToAction("Index");
         }
@@ -117,7 +114,7 @@ namespace VideoStore.Web.Controllers
         /// <returns>Home page.</returns>
         public ActionResult RentMovie (Guid id)
         {
-            movieService.Rent(id);
+            movieService.RentMovie(id);
 
             return RedirectToAction("Index");
         }
