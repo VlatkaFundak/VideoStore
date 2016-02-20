@@ -30,11 +30,11 @@
                 @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, "Select a category", new { @class = "form-control" })
             </div>
             <div class="btn-group-justified">
-                <div class="btn-group">
+                <div class="btn-group ">
                     <input type="submit" value="Save" class="btn btn-lg btn-success" />
                 </div>
                 <div class="btn-group">
-                    @Html.ActionLink("Cancel", "Cancel", null, new { @class = "btn btn-warning btn-lg" })
+                    @Html.ActionLink("Cancel", "Cancel", null, new { @class = "btn btn-warning btn-lg " })
                 </div>
             </div>
         </div>

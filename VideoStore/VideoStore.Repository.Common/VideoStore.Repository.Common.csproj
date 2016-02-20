@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VideoStore.Common\VideoStore.Common.csproj">
+      <Project>{1f87d027-b71a-41a3-b1ad-b1989c9b2e80}</Project>
+      <Name>VideoStore.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VideoStore.DAL\VideoStore.DAL.csproj">
       <Project>{c830804b-fe81-44b6-90e2-8e02ab544fdd}</Project>
       <Name>VideoStore.DAL</Name>

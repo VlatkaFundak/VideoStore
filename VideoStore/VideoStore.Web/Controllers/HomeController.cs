@@ -8,6 +8,8 @@ using VideoStore.Services;
 using VideoStore.Services.Common;
 using PagedList;
 using PagedList.Mvc;
+using System.Collections;
+using VideoStore.Common.Filters;
 
 namespace VideoStore.Web.Controllers
 {
@@ -31,18 +33,26 @@ namespace VideoStore.Web.Controllers
 
         #endregion
 
-        // GET: Home
-        public ActionResult Index(string sortBy, int? page, int pageSize = 12)
+        /// <summary>
+        /// Index action.
+        /// </summary>
+        /// <param name="pageNumber">Page number.</param>
+        /// <param name="pageSize">Page size.</param>
+        /// <param name="ordering">Ordering.</param>
+        /// <returns>Index page.</returns>   
+        public ActionResult Index( string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Title")
         {
-            ViewBag.CurrentSort = sortBy;
-            ViewBag.SortTitleParameter = String.IsNullOrEmpty(sortBy) ? "Title desc" : "";
-            ViewBag.SortCategoryParameter = sortBy == "Category" ? "Category desc" : "Category";
-            ViewBag.SortRatingParameter = sortBy == "Rating" ? "Rating desc" : "Rating";
+            MoviesFilter filter = new MoviesFilter(pageNumber, pageSize, ordering, searchMovie);
 
-            int pageNumber = (page ?? 1);
+            IEnumerable<Movie> movies = movieService.GetAllMovies(filter);
+            movieService.MoviesChangedStatus(movies,filter);            
 
-            IEnumerable<Movie> movies = movieService.GetAllMovies(sortBy,pageNumber,pageSize).ToPagedList(pageNumber,pageSize);
-            movieService.MoviesChangedStatus(movies, pageNumber, pageSize);
+            ViewBag.SortTitle = ordering == "Title" ? "Title desc" : "Title";
+            ViewBag.SortCategory = ordering == "Category.Name" ? "Category.Name desc" : "Category.Name";
+            ViewBag.SortRating = ordering == "Rating" ? "Rating desc" : "Rating";
+            ViewBag.SortYear = ordering == "Year" ? "Year desc" : "Year";
+            ViewBag.CurrentSort = ordering;
+            ViewBag.CurrentSearch = searchMovie;
 
             return View(movies);
         }

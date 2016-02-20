@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VideoStore.Models;
+using VideoStore.Common.Filters;
 
 namespace VideoStore.Services.Common
 {
@@ -24,14 +25,14 @@ namespace VideoStore.Services.Common
         /// <summary>
         /// Gets all movies.
         /// </summary>
-        /// <returns>Movies.</returns>
-        IEnumerable<Movie> GetAllMovies(string sortBy, int pageNumber, int pageSize);
+        /// <returns>Gets collection of all movies.</returns>
+        IEnumerable<Movie> GetAllMovies(MoviesFilter filter);
 
         /// <summary>
         /// Changes status of the movie.
         /// </summary>
         /// <returns>Movie.</returns>
-        void MoviesChangedStatus(IEnumerable<Movie> movies, int pageNumber, int pageSize);
+        void MoviesChangedStatus(IEnumerable<Movie> movies, MoviesFilter filter);
 
         /// <summary>
         /// Gets certain movie.

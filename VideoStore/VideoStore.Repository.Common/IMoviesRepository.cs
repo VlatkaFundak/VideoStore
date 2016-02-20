@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using VideoStore.Models;
+using VideoStore.Common.Filters;
 
 namespace VideoStore.Repository.Common
 {
@@ -9,7 +10,7 @@ namespace VideoStore.Repository.Common
     public interface IMoviesRepository
     {
 
-        IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize);
+        IEnumerable<Movie> GetAllMovies(MoviesFilter filter);
 
         /// <summary>
         /// Gets all statuses.

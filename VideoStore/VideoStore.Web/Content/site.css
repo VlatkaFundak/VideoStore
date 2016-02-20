@@ -29,3 +29,6 @@ textarea {
 .red {
     background-color: firebrick;
 }
+td {
+    cursor:  pointer;
+}

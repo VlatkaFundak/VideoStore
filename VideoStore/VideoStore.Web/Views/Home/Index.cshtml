@@ -7,16 +7,20 @@
 
 <h2>Home</h2>
 
+@using (Html.BeginForm())
+{
+    @Html.TextBox("SearchMovie", null, new { placeholder = "Search movies"})
+    <input type="submit" value="Search" class="btn btn-sm btn-success" />
+}
+
 <table class="table table-condensed">
     <tr class="active">
-        <th class= "col-md-3">@Html.ActionLink("Title", "Index", new { sortBy = ViewBag.SortTitleParameter })</th>
-        <th class="col-md-2">@Html.ActionLink("Category", "Index", new { sortBy = ViewBag.SortCategoryParameter })</th>
-        <th class="col-md-2">@Html.ActionLink("Rating", "Index", new { sortBy = ViewBag.SortRatingParameter })</th>
-        <th class="col-md-2">@Html.Label("Year")</th>
+        <th class= "col-md-3">@Html.ActionLink("Title", "Index", new { ordering = ViewBag.SortTitle})</th>
+        <th class="col-md-2">@Html.ActionLink("Category", "Index", new { ordering = ViewBag.SortCategory })</th>
+        <th class="col-md-2">@Html.ActionLink("Rating", "Index", new { ordering = ViewBag.SortRating })</th>
+        <th class="col-md-2">@Html.ActionLink("Year", "Index", new { ordering = ViewBag.SortYear })</th>
         <th class ="col-md-3">@Html.Label("Status")</th>
-        <td>
-            @Html.ActionLink("+", "NewMovie", "Home", null, new { @class = "btn btn-primary" })
-        </td>
+
     </tr>
 
     @foreach (var movie in Model)
@@ -25,15 +29,15 @@
 
         if (movie.Status.Name == "Available")
         {
-            movieClass = "yellow";
+            movieClass = "";
         }
         else if (movie.Status.Name == "Rented")
         {
-            movieClass = "green";
+            movieClass = "btn-warning";
         }
         else if (movie.Status.Name == "Rented(exp)!")
         {
-            movieClass = "red";
+            movieClass = "btn - alarm";
         }
 
         <tr onclick="location.href ='@Url.Action("MoreDetails","Home", new {id = movie.Id})'" class=@movieClass>
@@ -47,10 +51,10 @@
 
 </table>
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.ActionLink("New Movie", "NewMovie", "Home", null, new { @class = "btn btn-primary" })
 
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+@Html.PagedListPager(Model, pageNumber => Url.Action("Index", new { pageNumber, ordering = ViewBag.CurrentSort, searchMovie = ViewBag.CurrentSearch }))
 
 
 

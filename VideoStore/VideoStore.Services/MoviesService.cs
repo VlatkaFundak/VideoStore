@@ -7,6 +7,7 @@ using VideoStore.Models;
 using VideoStore.Repository;
 using VideoStore.Repository.Common;
 using VideoStore.Services.Common;
+using VideoStore.Common.Filters;
 
 namespace VideoStore.Services
 {
@@ -65,9 +66,9 @@ namespace VideoStore.Services
         /// Changes status of the movie.
         /// </summary>
         /// <returns>Movie.</returns>
-        public void MoviesChangedStatus(IEnumerable<Movie> movies, int pageNumber, int pageSize)
+        public void MoviesChangedStatus(IEnumerable<Movie> movies, MoviesFilter filter)
         {
-            movies = movieRepository.GetAllMovies(pageNumber, pageSize);
+            movies = movieRepository.GetAllMovies(filter);
             var listOfStatuses = movieRepository.GetMovieStatuses();
 
             foreach (var item in movies)
@@ -85,34 +86,9 @@ namespace VideoStore.Services
         /// Gets all movies.
         /// </summary>
         /// <returns>Movies.</returns>
-        public IEnumerable<Movie> GetAllMovies(string sortBy, int pageNumber, int pageSize)
+        public IEnumerable<Movie> GetAllMovies(MoviesFilter filter)
         {
-            IEnumerable<Movie> movies = movieRepository.GetAllMovies(pageNumber, pageSize);
-              
-            movies = from s in movies
-                          select s;
-
-            switch (sortBy)
-            {
-                case "Title desc":
-                    movies = movies.OrderByDescending(s => s.Title);
-                    break;
-                case "Category":
-                    movies = movies.OrderBy(s => s.Category.Name);
-                    break;
-                case "Category desc":
-                    movies = movies.OrderByDescending(s => s.Category.Name);
-                    break;
-                case "Rating desc":
-                    movies = movies.OrderByDescending(s => s.Rating);
-                    break;
-                case "Rating":
-                    movies = movies.OrderBy(s => s.Rating);
-                    break;
-                default:
-                    movies = movies.OrderBy(s => s.Title);
-                    break;
-            }
+            IEnumerable<Movie> movies = movieRepository.GetAllMovies(filter);
 
             return movies;
         }

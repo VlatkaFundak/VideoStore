@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using VideoStore.DAL;
 using VideoStore.Models;
 using VideoStore.Repository.Common;
+using VideoStore.Common.Filters;
+using System.Linq.Dynamic;
 
 using PagedList;
 using PagedList.Mvc;
@@ -61,12 +63,19 @@ namespace VideoStore.Repository
             }
         }
 
-
-        public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
+        /// <summary>
+        /// Gets all movies.
+        /// </summary>
+        /// <param name="filter">Movie filter.</param>
+        /// <returns>Gets collection of all movies.</returns>
+        public IEnumerable<Movie> GetAllMovies(MoviesFilter filter)
         {
             try
             {
-                return MovieContext.Movies.OrderBy(item => item.Title).ToPagedList(pageNumber, pageSize).AsEnumerable();
+                return MovieContext.Movies
+                    .Where(item => String.IsNullOrEmpty(filter.SearchMovie) ? item != null : item.Title.Contains(filter.SearchMovie))
+                    .OrderBy(filter.Ordering)
+                    .ToPagedList(filter.PageNumber, filter.PageSize);
             }
             catch (Exception e)
             {                
@@ -84,7 +93,8 @@ namespace VideoStore.Repository
 
             try
             {
-                movie.StatusId = MovieContext.Statuses.Where(item => String.Equals(item.Name, "Available")).First().Id;
+                //movie.StatusId = MovieContext.Statuses.Where(item => String.Equals(item.Name, "Available")).First().Id;
+                movie.StatusId = MovieContext.Statuses.First(item => String.Equals(item.Name, "Available")).Id;
                 movie.DateCreated = DateTime.Now;
                 movie.DateUpdated = DateTime.Now;
 
