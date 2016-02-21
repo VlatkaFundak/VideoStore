@@ -33,9 +33,12 @@ namespace VideoStore.Web.Controllers
 
         #endregion
 
+
         /// <summary>
         /// Index action.
         /// </summary>
+        /// <param name="movieCategoryId">Movie category id.</param>
+        /// <param name="movieStatusId">Movie status id.</param>
         /// <param name="searchMovie">Search movie.</param>
         /// <param name="pageNumber">Page number.</param>
         /// <param name="pageSize">Page size.</param>

@@ -21,6 +21,7 @@ namespace VideoStore.Common.Filters
         /// <param name="ordering">Ordering.</param>
         /// <param name="searchMovie">Search movie.</param>
         /// <param name="movieStatusId">Movie status id.</param>
+        /// <param name="movieCategoryId">Movie category id.</param>
         public MoviesFilter(int pageNumber, int pageSize, string ordering, string searchMovie, Guid? movieStatusId, Guid? movieCategoryId)
         {
             this.PageNumber = pageNumber;
