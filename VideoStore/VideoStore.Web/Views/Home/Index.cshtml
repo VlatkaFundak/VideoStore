@@ -15,11 +15,9 @@
         </div>
         <div class="col-md-6">
             <span class="pull-right text-warning">
-                @Html.DropDownList("movieStatusId", (SelectList)ViewBag.Statuses, "Show all statuses")
-                <input type="submit" value="Select" class="btn btn-sm btn-success" />
+                @Html.DropDownList("movieStatusId", (SelectList)ViewBag.Statuses, "Show all statuses", new { @class = "btn btn-default dropdown-toggle", onchange = "this.form.submit()" })
                 <br />
-                @Html.DropDownList("movieCategoryId", (SelectList)ViewBag.Categories, "Show all categories")
-                <input type="submit" value="Select" class="btn btn-sm btn-success" />
+                @Html.DropDownList("movieCategoryId", (SelectList)ViewBag.Categories, "Show all categories", new { @class = "btn btn-default dropdown-toggle", onchange = "this.form.submit()" })
             </span>
         </div>
     </div>
@@ -49,7 +47,7 @@
         }
         else if (movie.Status.Name == "Rented(exp)!")
         {
-            movieClass = "btn - alarm";
+            movieClass = "btn-danger";
         }
 
         <tr onclick="location.href ='@Url.Action("MoreDetails","Home", new {id = movie.Id})'" class=@movieClass>
