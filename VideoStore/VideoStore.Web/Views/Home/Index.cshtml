@@ -1,5 +1,4 @@
 ﻿@using PagedList.Mvc;
-
 @model PagedList.IPagedList<VideoStore.Models.Movie>
 @{
     ViewBag.Title = "Home page";
@@ -9,17 +8,30 @@
 
 @using (Html.BeginForm())
 {
-    @Html.TextBox("SearchMovie", null, new { placeholder = "Search movies"})
-    <input type="submit" value="Search" class="btn btn-sm btn-success" />
+    <div class="row">
+        <div class="col-md-6">
+            @Html.TextBox("SearchMovie", null, new { placeholder = "Search movies" })
+            <input type="submit" value="Search" class="btn btn-sm btn-success" />
+        </div>
+        <div class="col-md-6">
+            <span class="pull-right text-warning">
+                @Html.DropDownList("movieStatusId", (SelectList)ViewBag.Statuses, "Show all statuses")
+                <input type="submit" value="Select" class="btn btn-sm btn-success" />
+                <br />
+                @Html.DropDownList("movieCategoryId", (SelectList)ViewBag.Categories, "Show all categories")
+                <input type="submit" value="Select" class="btn btn-sm btn-success" />
+            </span>
+        </div>
+    </div>
 }
 
 <table class="table table-condensed">
     <tr class="active">
-        <th class= "col-md-3">@Html.ActionLink("Title", "Index", new { ordering = ViewBag.SortTitle})</th>
+        <th class="col-md-3">@Html.ActionLink("Title", "Index", new { ordering = ViewBag.SortTitle })</th>
         <th class="col-md-2">@Html.ActionLink("Category", "Index", new { ordering = ViewBag.SortCategory })</th>
         <th class="col-md-2">@Html.ActionLink("Rating", "Index", new { ordering = ViewBag.SortRating })</th>
         <th class="col-md-2">@Html.ActionLink("Year", "Index", new { ordering = ViewBag.SortYear })</th>
-        <th class ="col-md-3">@Html.Label("Status")</th>
+        <th class="col-md-3">@Html.Label("Status")</th>
 
     </tr>
 

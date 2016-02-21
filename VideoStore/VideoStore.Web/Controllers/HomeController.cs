@@ -36,16 +36,20 @@ namespace VideoStore.Web.Controllers
         /// <summary>
         /// Index action.
         /// </summary>
+        /// <param name="searchMovie">Search movie.</param>
         /// <param name="pageNumber">Page number.</param>
         /// <param name="pageSize">Page size.</param>
         /// <param name="ordering">Ordering.</param>
-        /// <returns>Index page.</returns>   
-        public ActionResult Index( string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Title")
+        /// <returns>Index page.</returns>
+        public ActionResult Index(Guid? movieCategoryId, Guid? movieStatusId, string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Title")
         {
-            MoviesFilter filter = new MoviesFilter(pageNumber, pageSize, ordering, searchMovie);
+            MoviesFilter filter = new MoviesFilter(pageNumber, pageSize, ordering, searchMovie, movieStatusId,movieCategoryId);
+
+            ViewBag.Statuses = new SelectList(movieService.GetMovieStatuses(), "Id", "Name");
+            ViewBag.Categories = new SelectList(movieService.GetMovieCategories(), "Id", "Name");
 
             IEnumerable<Movie> movies = movieService.GetAllMovies(filter);
-            movieService.MoviesChangedStatus(movies,filter);            
+            movieService.MoviesChangedStatus(movies,filter);
 
             ViewBag.SortTitle = ordering == "Title" ? "Title desc" : "Title";
             ViewBag.SortCategory = ordering == "Category.Name" ? "Category.Name desc" : "Category.Name";
@@ -53,6 +57,8 @@ namespace VideoStore.Web.Controllers
             ViewBag.SortYear = ordering == "Year" ? "Year desc" : "Year";
             ViewBag.CurrentSort = ordering;
             ViewBag.CurrentSearch = searchMovie;
+            ViewBag.CurrentStatus = movieStatusId;
+            ViewBag.CurrentCategory = movieCategoryId;
 
             return View(movies);
         }
@@ -90,7 +96,7 @@ namespace VideoStore.Web.Controllers
         /// <summary>
         /// Cancel action.
         /// </summary>
-        /// <returns>Returns to home page.</returns>
+        /// <returns>Returns to index page.</returns>
         public ActionResult Cancel()
         {
             return RedirectToAction("Index");

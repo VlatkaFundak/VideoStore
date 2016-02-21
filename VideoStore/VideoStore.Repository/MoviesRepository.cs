@@ -71,9 +71,11 @@ namespace VideoStore.Repository
         public IEnumerable<Movie> GetAllMovies(MoviesFilter filter)
         {
             try
-            {
+            {                
                 return MovieContext.Movies
                     .Where(item => String.IsNullOrEmpty(filter.SearchMovie) ? item != null : item.Title.Contains(filter.SearchMovie))
+                    .Where(item => Guid.Empty == filter.MovieStatusId ? item != null : item.StatusId == filter.MovieStatusId)
+                    .Where(item => Guid.Empty == filter.MovieCategoryId ? item != null : item.CategoryId == filter.MovieCategoryId)
                     .OrderBy(filter.Ordering)
                     .ToPagedList(filter.PageNumber, filter.PageSize);
             }
