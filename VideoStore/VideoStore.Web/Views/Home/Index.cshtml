@@ -8,19 +8,21 @@
 
 @using (Html.BeginForm())
 {
-    <div class="row">
+    <div class=" row">
         <div class="col-md-6">
             @Html.TextBox("SearchMovie", null, new { placeholder = "Search movies" })
             <input type="submit" value="Search" class="btn btn-sm btn-success" />
         </div>
-        <div class="col-md-6">
-            <span class="pull-right text-warning">
+        <div class="col-md-4">
+            <span class="pull-left">
                 @Html.DropDownList("movieStatusId", (SelectList)ViewBag.Statuses, "Show all statuses", new { @class = "btn btn-default dropdown-toggle", onchange = "this.form.submit()" })
-                <br />
-                @Html.DropDownList("movieCategoryId", (SelectList)ViewBag.Categories, "Show all categories", new { @class = "btn btn-default dropdown-toggle", onchange = "this.form.submit()" })
             </span>
         </div>
+        <div class="">
+            @Html.DropDownList("movieCategoryId", (SelectList)ViewBag.Categories, "Show all categories", new { @class = "btn btn-default dropdown-toggle", onchange = "this.form.submit()" })
+        </div>
     </div>
+    <br />
 }
 
 <table class="table table-condensed">
@@ -64,7 +66,7 @@
 @Html.ActionLink("New Movie", "NewMovie", "Home", null, new { @class = "btn btn-primary" })
 
 
-@Html.PagedListPager(Model, pageNumber => Url.Action("Index", new { pageNumber, ordering = ViewBag.CurrentSort, searchMovie = ViewBag.CurrentSearch }))
+@Html.PagedListPager(Model, pageNumber => Url.Action("Index", new { pageNumber, ordering = ViewBag.CurrentSort, searchMovie = ViewBag.CurrentSearch, movieStatusId = ViewBag.CurrentStatus, movieCategoryId = ViewBag.CurrentCategory }))
 
 
 

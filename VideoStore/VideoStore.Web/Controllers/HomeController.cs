@@ -52,7 +52,7 @@ namespace VideoStore.Web.Controllers
             ViewBag.Categories = new SelectList(movieService.GetMovieCategories(), "Id", "Name");
 
             IEnumerable<Movie> movies = movieService.GetAllMovies(filter);
-            movieService.MoviesChangedStatus(movies,filter);
+            movieService.MoviesChangedStatus(movies);
 
             ViewBag.SortTitle = ordering == "Title" ? "Title desc" : "Title";
             ViewBag.SortCategory = ordering == "Category.Name" ? "Category.Name desc" : "Category.Name";

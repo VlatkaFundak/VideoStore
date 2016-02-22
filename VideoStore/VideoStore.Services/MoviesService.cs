@@ -66,9 +66,9 @@ namespace VideoStore.Services
         /// Changes status of the movie.
         /// </summary>
         /// <returns>Movie.</returns>
-        public void MoviesChangedStatus(IEnumerable<Movie> movies, MoviesFilter filter)
+        public void MoviesChangedStatus(IEnumerable<Movie> movies)
         {
-            movies = movieRepository.GetAllMovies(filter);
+            //movies = movieRepository.GetAllMovies(filter);
             var listOfStatuses = movieRepository.GetMovieStatuses();
 
             foreach (var item in movies)

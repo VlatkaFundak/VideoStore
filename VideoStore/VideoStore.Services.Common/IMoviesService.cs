@@ -32,7 +32,7 @@ namespace VideoStore.Services.Common
         /// Changes status of the movie.
         /// </summary>
         /// <returns>Movie.</returns>
-        void MoviesChangedStatus(IEnumerable<Movie> movies, MoviesFilter filter);
+        void MoviesChangedStatus(IEnumerable<Movie> movies);
 
         /// <summary>
         /// Gets certain movie.
