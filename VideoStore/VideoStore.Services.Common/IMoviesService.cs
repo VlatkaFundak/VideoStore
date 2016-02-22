@@ -29,9 +29,9 @@ namespace VideoStore.Services.Common
         IEnumerable<Movie> GetAllMovies(MoviesFilter filter);
 
         /// <summary>
-        /// Changes status of the movie.
+        /// Changes movie status.
         /// </summary>
-        /// <returns>Movie.</returns>
+        /// <param name="movies">Movies.</param>
         void MoviesChangedStatus(IEnumerable<Movie> movies);
 
         /// <summary>
