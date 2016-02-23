@@ -45,7 +45,7 @@ namespace VideoStore.Web.Controllers
         /// <param name="pageSize">Page size.</param>
         /// <param name="ordering">Ordering.</param>
         /// <returns>Index page.</returns>
-        public async Task<ActionResult> Index(Guid? movieCategoryId, Guid? movieStatusId, string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Title")
+        public async Task<ActionResult> Index(Guid? movieCategoryId, Guid? movieStatusId, string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Status")
         {
             MoviesFilter filter = new MoviesFilter(pageNumber, pageSize, ordering, searchMovie, movieStatusId,movieCategoryId);
 
@@ -59,6 +59,7 @@ namespace VideoStore.Web.Controllers
             ViewBag.SortCategory = ordering == "Category.Name" ? "Category.Name desc" : "Category.Name";
             ViewBag.SortRating = ordering == "Rating" ? "Rating desc" : "Rating";
             ViewBag.SortYear = ordering == "Year" ? "Year desc" : "Year";
+            ViewBag.SortStatus = ordering == "Status.Name" ? "Status.Name desc" : "Status.Name";
             ViewBag.CurrentSort = ordering;
             ViewBag.CurrentSearch = searchMovie;
             ViewBag.CurrentStatus = movieStatusId;
@@ -120,9 +121,9 @@ namespace VideoStore.Web.Controllers
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Home page.</returns>
-        public ActionResult DeleteMovie(Guid id)
+        public async Task<ActionResult> DeleteMovie(Guid id)
         {
-            movieService.DeleteMovieAsync(id);
+            await movieService.DeleteMovieAsync(id);
 
             return RedirectToAction("Index");
         }
@@ -132,9 +133,9 @@ namespace VideoStore.Web.Controllers
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Home page.</returns>
-        public ActionResult RentMovie (Guid id)
+        public async Task<ActionResult> RentMovie (Guid id)
         {
-            movieService.RentMovie(id);
+            await movieService.RentMovie(id);
 
             return RedirectToAction("Index");
         }
@@ -144,9 +145,9 @@ namespace VideoStore.Web.Controllers
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Index page.</returns>
-        public ActionResult ReturnMovie (Guid id)
+        public async Task<ActionResult> ReturnMovie (Guid id)
         {
-            movieService.ReturnMovie(id);
+            await movieService.ReturnMovie(id);
 
             return RedirectToAction("Index");
         }

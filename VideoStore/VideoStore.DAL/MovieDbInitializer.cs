@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace VideoStore.DAL
 {
-    public class MovieDbInitializer : DropCreateDatabaseIfModelChanges<MovieContext>
+    public class MovieDbInitializer : DropCreateDatabaseAlways<MovieContext>
     {
         protected override void Seed(MovieContext context)
         {
@@ -47,7 +47,7 @@ namespace VideoStore.DAL
             Rented_exp.Name = "Rented(exp)!";
             context.Statuses.Add(Rented_exp);
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 10; i++)
             {
                 var Meet_The_Millers = new Movie();
                 Meet_The_Millers.Id = Guid.NewGuid();
@@ -85,7 +85,7 @@ namespace VideoStore.DAL
                 PulpFiction.DateCreated = DateTime.Now;
                 PulpFiction.DateUpdated = DateTime.Now;
                 PulpFiction.CategoryId = Action.Id;
-                PulpFiction.StatusId = Rented.Id;
+                PulpFiction.StatusId = Available.Id;
                 context.Movies.Add(PulpFiction);
 
                 var Matrix = new Movie();
