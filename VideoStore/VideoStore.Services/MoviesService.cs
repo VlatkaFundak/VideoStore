@@ -40,36 +40,38 @@ namespace VideoStore.Services
         /// Rents a movie.
         /// </summary>
         /// <param name="id">Id.</param>
-        public void RentMovie(Guid id)
+        public async Task RentMovie(Guid id)
         {
-            Movie movie = movieRepository.GetMovie(id);
+            Movie movie =await movieRepository.GetMovieAsync(id);
+            var listOfStatuses = await movieRepository.GetMovieStatusesAsync();
             movie.DateExpired = DateTime.Now.AddDays(7);
 
-            movie.StatusId = movieRepository.GetMovieStatuses().ToList().Where(item => item.Name == "Rented").First().Id;
-            movieRepository.SaveStatusToBase();
+            movie.StatusId = listOfStatuses.Where(item => item.Name == "Rented").First().Id;
+            await movieRepository.SaveStatusToBase();
         }
 
         /// <summary>
         /// Returns movie.
         /// </summary>
         /// <param name="id">Id.</param>
-        public void ReturnMovie (Guid id)
+        public async Task ReturnMovie (Guid id)
         {
-            Movie movie = movieRepository.GetMovie(id);
+            Movie movie = await movieRepository.GetMovieAsync(id);
+            var listOfStatuses = await movieRepository.GetMovieStatusesAsync();
 
-            movie.StatusId = movieRepository.GetMovieStatuses().ToList().Where(item => item.Name == "Available").First().Id;
+            movie.StatusId = listOfStatuses.Where(item => item.Name == "Available").First().Id;
             movie.DateExpired = null;
-            movieRepository.SaveStatusToBase();
+            await movieRepository.SaveStatusToBase();
         }
         
         /// <summary>
         /// Changes movie status.
         /// </summary>
         /// <param name="movies">Movies.</param>
-        public void MoviesChangedStatus(IEnumerable<Movie> movies)
+        public async Task MoviesChangedStatus(IEnumerable<Movie> movies)
         {
             //movies = movieRepository.GetAllMovies(filter);
-            var listOfStatuses = movieRepository.GetMovieStatuses();
+            var listOfStatuses = await movieRepository.GetMovieStatusesAsync();
 
             foreach (var item in movies)
             {
@@ -79,18 +81,16 @@ namespace VideoStore.Services
                 }
             }
 
-            movieRepository.SaveStatusToBase();
+            await movieRepository.SaveStatusToBase();
         }
         
         /// <summary>
         /// Gets all movies.
         /// </summary>
         /// <returns>Movies.</returns>
-        public IEnumerable<Movie> GetAllMovies(MoviesFilter filter)
+        public async Task<IEnumerable<Movie>> GetAllMoviesAsync(MoviesFilter filter)
         {
-            IEnumerable<Movie> movies = movieRepository.GetAllMovies(filter);
-
-            return movies;
+            return await movieRepository.GetAllMoviesAsync(filter); 
         }
 
         /// <summary>
@@ -98,45 +98,45 @@ namespace VideoStore.Services
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Movie.</returns>
-        public Movie GetMovie (Guid id)
+        public async Task<Movie> GetMovieAsync (Guid id)
         {
-            return movieRepository.GetMovie(id);
+            return await movieRepository.GetMovieAsync(id);
         }
 
         /// <summary>
         /// Creates new movie.
         /// </summary>
         /// <param name="movie">Movie.</param>
-        public void NewMovie(Movie movie)
+        public async Task NewMovieAsync(Movie movie)
         {
-            movieRepository.NewMovie(movie);
+            await movieRepository.NewMovieAsync(movie);
         }
 
         /// <summary>
         /// Deletes movie.
         /// </summary>
         /// <param name="id">Id of the movie.</param>
-        public void DeleteMovie (Guid id)
+        public async Task DeleteMovieAsync (Guid id)
         {
-            movieRepository.DeleteMovie(id);
+            await movieRepository.DeleteMovieAsync(id);
         }
 
         /// <summary>
         /// Gets all statuses.
         /// </summary>
         /// <returns>Statuses.</returns>
-        public IEnumerable<Status> GetMovieStatuses()
+        public async Task<IEnumerable<Status>> GetMovieStatuses()
         {
-            return movieRepository.GetMovieStatuses().ToList();
+            return await movieRepository.GetMovieStatusesAsync();
         }
               
         /// <summary>
         /// Gets movie categories.
         /// </summary>
         /// <returns>Categories.</returns>
-        public IEnumerable<Category> GetMovieCategories()
+        public async Task<IEnumerable<Category>> GetMovieCategories()
         {
-            return movieRepository.GetMovieCategories().ToList();
+            return await movieRepository.GetMovieCategoriesAsync();
         }
 
         #endregion

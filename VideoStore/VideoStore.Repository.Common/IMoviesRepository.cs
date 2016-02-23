@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using VideoStore.Models;
 using VideoStore.Common.Filters;
+using System.Threading.Tasks;
 
 namespace VideoStore.Repository.Common
 {
@@ -10,42 +11,42 @@ namespace VideoStore.Repository.Common
     public interface IMoviesRepository
     {
 
-        IEnumerable<Movie> GetAllMovies(MoviesFilter filter);
+        Task<IEnumerable<Movie>> GetAllMoviesAsync(MoviesFilter filter);
 
         /// <summary>
         /// Gets all statuses.
         /// </summary>
         /// <returns>Statuses.</returns>
-        IEnumerable<Status> GetMovieStatuses();
+        Task<IEnumerable<Status>> GetMovieStatusesAsync();
 
         /// <summary>
         /// Gets chosen movie.
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Movie.</returns>
-        Movie GetMovie(System.Guid id);
+        Task<Movie> GetMovieAsync(System.Guid id);
 
         /// <summary>
         /// Creates new movie.
         /// </summary>
         /// <param name="movie">Movie.</param>
-        void NewMovie(Movie movie);
+        Task NewMovieAsync(Movie movie);
 
         /// <summary>
         /// Gets movie categories.
         /// </summary>
         /// <returns>Categories.</returns>
-        IEnumerable<Category> GetMovieCategories();
+        Task<IEnumerable<Category>> GetMovieCategoriesAsync();
 
         /// <summary>
         /// Deletes movie.
         /// </summary>
         /// <param name="id">Id of the movie.</param>
-        void DeleteMovie(System.Guid id);
+        Task DeleteMovieAsync(System.Guid id);
 
         /// <summary>
         /// Saves data to base.
         /// </summary>
-        void SaveStatusToBase();
+        Task SaveStatusToBase();
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using VideoStore.Models;
 using VideoStore.Services;
 using VideoStore.Services.Common;
+using System.Threading.Tasks;
 using PagedList;
 using PagedList.Mvc;
 using System.Collections;
@@ -44,15 +45,15 @@ namespace VideoStore.Web.Controllers
         /// <param name="pageSize">Page size.</param>
         /// <param name="ordering">Ordering.</param>
         /// <returns>Index page.</returns>
-        public ActionResult Index(Guid? movieCategoryId, Guid? movieStatusId, string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Title")
+        public async Task<ActionResult> Index(Guid? movieCategoryId, Guid? movieStatusId, string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Title")
         {
             MoviesFilter filter = new MoviesFilter(pageNumber, pageSize, ordering, searchMovie, movieStatusId,movieCategoryId);
 
-            ViewBag.Statuses = new SelectList(movieService.GetMovieStatuses(), "Id", "Name");
-            ViewBag.Categories = new SelectList(movieService.GetMovieCategories(), "Id", "Name");
+            ViewBag.Statuses = new SelectList(await movieService.GetMovieStatuses(), "Id", "Name");
+            ViewBag.Categories = new SelectList(await movieService.GetMovieCategories(), "Id", "Name");
 
-            IEnumerable<Movie> movies = movieService.GetAllMovies(filter);
-            movieService.MoviesChangedStatus(movies);
+            IEnumerable<Movie> movies = await movieService.GetAllMoviesAsync(filter);
+            await movieService.MoviesChangedStatus(movies);
 
             ViewBag.SortTitle = ordering == "Title" ? "Title desc" : "Title";
             ViewBag.SortCategory = ordering == "Category.Name" ? "Category.Name desc" : "Category.Name";
@@ -70,9 +71,9 @@ namespace VideoStore.Web.Controllers
         /// Gets new movie.
         /// </summary>
         /// <returns>Index page.</returns>
-        public ActionResult NewMovie()
+        public async Task<ActionResult> NewMovie()
         {
-            ViewBag.Categories = new SelectList(movieService.GetMovieCategories(), "Id", "Name");
+            ViewBag.Categories = new SelectList(await movieService.GetMovieCategories(), "Id", "Name");
 
             return View(new Movie());
         }
@@ -83,15 +84,15 @@ namespace VideoStore.Web.Controllers
         /// <param name="movie">Movie.</param>
         /// <returns>Index page.</returns>
         [HttpPost]
-        public ActionResult NewMovie(Movie movie)
+        public async Task<ActionResult> NewMovie(Movie movie)
         {
             if (ModelState.IsValid)
             {
-                movieService.NewMovie(movie);
+                await movieService.NewMovieAsync(movie);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Categories = new SelectList(movieService.GetMovieCategories(), "Id", "Name");
+            ViewBag.Categories = new SelectList(await movieService.GetMovieCategories(), "Id", "Name");
 
             return View();
         }
@@ -109,9 +110,9 @@ namespace VideoStore.Web.Controllers
         /// More details about the movie.
         /// </summary>
         /// <returns>More details page.</returns>
-        public ActionResult MoreDetails(Guid id)
+        public async Task<ActionResult> MoreDetails(Guid id)
         {            
-            return View(movieService.GetMovie(id));
+            return View(await movieService.GetMovieAsync(id));
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace VideoStore.Web.Controllers
         /// <returns>Home page.</returns>
         public ActionResult DeleteMovie(Guid id)
         {
-            movieService.DeleteMovie(id);
+            movieService.DeleteMovieAsync(id);
 
             return RedirectToAction("Index");
         }

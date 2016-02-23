@@ -12,6 +12,7 @@ using System.Linq.Dynamic;
 
 using PagedList;
 using PagedList.Mvc;
+using PagedList.EntityFramework;
 
 namespace VideoStore.Repository
 {
@@ -48,13 +49,11 @@ namespace VideoStore.Repository
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Movie.</returns>
-        public Movie GetMovie(Guid id)
+        public async Task<Movie> GetMovieAsync(Guid id)
         {
             try
             {
-                var selectedMovie = MovieContext.Movies.ToList().Find(item => item.Id == id);
-
-                return selectedMovie;
+                return await MovieContext.Movies.FindAsync(id);
             }
             catch (Exception e)
             {
@@ -68,17 +67,18 @@ namespace VideoStore.Repository
         /// </summary>
         /// <param name="filter">Movie filter.</param>
         /// <returns>Gets collection of all movies.</returns>
-        public IEnumerable<Movie> GetAllMovies(MoviesFilter filter)
+        public async Task<IEnumerable<Movie>> GetAllMoviesAsync(MoviesFilter filter)
         {
             try
-            {                
-                return MovieContext.Movies
+            {
+               return await MovieContext.Movies
                     .Where(item => String.IsNullOrEmpty(filter.SearchMovie) ? item != null : item.Title.Contains(filter.SearchMovie))
                     .Where(item => Guid.Empty == filter.MovieStatusId ? item != null : item.StatusId == filter.MovieStatusId)
                     .Where(item => Guid.Empty == filter.MovieCategoryId ? item != null : item.CategoryId == filter.MovieCategoryId)
                     .OrderBy(filter.Ordering)
-                    .ToPagedList(filter.PageNumber, filter.PageSize);
+                    .ToPagedListAsync(filter.PageNumber, filter.PageSize);
             }
+
             catch (Exception e)
             {                
                 throw e;
@@ -89,19 +89,18 @@ namespace VideoStore.Repository
         /// Creates new movie.
         /// </summary>
         /// <param name="movie">Movie.</param>
-        public void NewMovie(Movie movie)
+        public async Task NewMovieAsync(Movie movie)
         {
             movie.Id = Guid.NewGuid();
 
             try
             {
-                //movie.StatusId = MovieContext.Statuses.Where(item => String.Equals(item.Name, "Available")).First().Id;
                 movie.StatusId = MovieContext.Statuses.First(item => String.Equals(item.Name, "Available")).Id;
                 movie.DateCreated = DateTime.Now;
                 movie.DateUpdated = DateTime.Now;
 
                 MovieContext.Movies.Add(movie);
-                MovieContext.SaveChanges();
+                await MovieContext.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -114,12 +113,13 @@ namespace VideoStore.Repository
         /// Deletes movie.
         /// </summary>
         /// <param name="id">Id of the movie.</param>
-        public void DeleteMovie(Guid id)
+        public async Task DeleteMovieAsync(Guid id)
         {
             try
             {
-                MovieContext.Movies.Remove(GetMovie(id));
-                MovieContext.SaveChanges();
+                Movie removeMovie = await MovieContext.Movies.FindAsync(id);
+                MovieContext.Movies.Remove(removeMovie);
+                await MovieContext.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -131,11 +131,11 @@ namespace VideoStore.Repository
         /// <summary>
         /// Saves data to base.
         /// </summary>
-        public void SaveStatusToBase()
+        public async Task SaveStatusToBase()
         {
             try
             {
-                MovieContext.SaveChanges();
+                await MovieContext.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -148,18 +148,18 @@ namespace VideoStore.Repository
         /// Gets all statuses.
         /// </summary>
         /// <returns>Statuses.</returns>
-        public IEnumerable<Status> GetMovieStatuses()
+        public async Task<IEnumerable<Status>> GetMovieStatusesAsync()
         {
-            return MovieContext.Statuses;
+            return await MovieContext.Statuses.ToListAsync();
         }
 
         /// <summary>
         /// Gets movie categories.
         /// </summary>
         /// <returns>Categories.</returns>
-        public IEnumerable<Category> GetMovieCategories()
+        public async Task<IEnumerable<Category>> GetMovieCategoriesAsync()
         {
-            return MovieContext.Categories;
+            return await MovieContext.Categories.ToListAsync();
         }
 
         #endregion

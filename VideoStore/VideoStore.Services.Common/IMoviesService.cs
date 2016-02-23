@@ -14,56 +14,56 @@ namespace VideoStore.Services.Common
         /// Rents a movie.
         /// </summary>
         /// <param name="id">Id.</param>
-        void RentMovie(Guid id);
+        Task RentMovie(Guid id);
 
         /// <summary>
         /// Returns movie.
         /// </summary>
         /// <param name="id">Id.</param>
-        void ReturnMovie(Guid id);
+        Task ReturnMovie(Guid id);
 
         /// <summary>
         /// Gets all movies.
         /// </summary>
         /// <returns>Gets collection of all movies.</returns>
-        IEnumerable<Movie> GetAllMovies(MoviesFilter filter);
+        Task<IEnumerable<Movie>> GetAllMoviesAsync(MoviesFilter filter);
 
         /// <summary>
         /// Changes movie status.
         /// </summary>
         /// <param name="movies">Movies.</param>
-        void MoviesChangedStatus(IEnumerable<Movie> movies);
+        Task MoviesChangedStatus(IEnumerable<Movie> movies);
 
         /// <summary>
         /// Gets certain movie.
         /// </summary>
         /// <param name="id">Id.</param>
         /// <returns>Movie.</returns>
-        Movie GetMovie(System.Guid id);
+        Task<Movie> GetMovieAsync(System.Guid id);
 
         /// <summary>
         /// Creates new movie.
         /// </summary>
         /// <param name="movie">Movie.</param>
-        void NewMovie(Movie movie);
+        Task NewMovieAsync(Movie movie);
 
         /// <summary>
         /// Deletes movie.
         /// </summary>
         /// <param name="id">Id of the movie.</param>
-        void DeleteMovie(System.Guid id);
+        Task DeleteMovieAsync(System.Guid id);
 
         /// <summary>
         /// Gets all statuses.
         /// </summary>
         /// <returns>Statuses.</returns>
-        IEnumerable<Status> GetMovieStatuses();
+        Task<IEnumerable<Status>> GetMovieStatuses();
 
         /// <summary>
         /// Gets movie categories.
         /// </summary>
         /// <returns>Categories.</returns>
-        IEnumerable<Category> GetMovieCategories();
+        Task<IEnumerable<Category>> GetMovieCategories();
 
     }
 }
