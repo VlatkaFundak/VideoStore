@@ -70,7 +70,6 @@ namespace VideoStore.Services
         /// <param name="movies">Movies.</param>
         public async Task MoviesChangedStatus(IEnumerable<Movie> movies)
         {
-            //movies = movieRepository.GetAllMovies(filter);
             var listOfStatuses = await movieRepository.GetMovieStatusesAsync();
 
             foreach (var item in movies)

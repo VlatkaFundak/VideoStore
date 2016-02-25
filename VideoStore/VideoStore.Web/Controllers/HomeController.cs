@@ -34,7 +34,6 @@ namespace VideoStore.Web.Controllers
 
         #endregion
 
-
         /// <summary>
         /// Index action.
         /// </summary>
@@ -45,9 +44,9 @@ namespace VideoStore.Web.Controllers
         /// <param name="pageSize">Page size.</param>
         /// <param name="ordering">Ordering.</param>
         /// <returns>Index page.</returns>
-        public async Task<ActionResult> Index(Guid? movieCategoryId, Guid? movieStatusId, string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Status")
+        public async Task<ActionResult> Index(Guid? movieCategoryId, Guid? movieStatusId, string searchMovie, int pageNumber = 1, int pageSize = 12, string ordering = "Title")
         {
-            MoviesFilter filter = new MoviesFilter(pageNumber, pageSize, ordering, searchMovie, movieStatusId,movieCategoryId);
+            MoviesFilter filter = new MoviesFilter(pageNumber, pageSize, ordering, searchMovie, movieStatusId, movieCategoryId);
 
             ViewBag.Statuses = new SelectList(await movieService.GetMovieStatuses(), "Id", "Name");
             ViewBag.Categories = new SelectList(await movieService.GetMovieCategories(), "Id", "Name");
@@ -59,7 +58,6 @@ namespace VideoStore.Web.Controllers
             ViewBag.SortCategory = ordering == "Category.Name" ? "Category.Name desc" : "Category.Name";
             ViewBag.SortRating = ordering == "Rating" ? "Rating desc" : "Rating";
             ViewBag.SortYear = ordering == "Year" ? "Year desc" : "Year";
-            ViewBag.SortStatus = ordering == "Status.Name" ? "Status.Name desc" : "Status.Name";
             ViewBag.CurrentSort = ordering;
             ViewBag.CurrentSearch = searchMovie;
             ViewBag.CurrentStatus = movieStatusId;

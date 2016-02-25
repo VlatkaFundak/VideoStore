@@ -17,7 +17,7 @@ namespace VideoStore.DAL
         /// Constructor.
         /// </summary>
         public MovieContext()
-            :base("VideoStoreDb")
+            : base("VideoStoreDb")
         {
             Database.SetInitializer<MovieContext>(new MovieDbInitializer());
         }
